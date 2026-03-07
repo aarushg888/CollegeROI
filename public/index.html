@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CollegeROI — Is Your Dream School Worth It?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ======================== LANDING PAGE ======================== -->
+  <div id="landing-page">
+
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+
+    <header>
+      <div class="logo">COLLEGE<span>ROI</span></div>
+      <div class="tagline">INVISIBLE INFRASTRUCTURE EXPOSED</div>
+    </header>
+
+    <main class="hero">
+      <div class="hero-text">
+        <h1>IS YOUR<br/><span class="highlight">DREAM SCHOOL</span><br/>WORTH IT?</h1>
+        <p class="sub">Hidden financial systems silently decide your future.<br/>We make them visible.</p>
+      </div>
+
+      <div class="input-panel">
+
+        <!-- COLLEGE INPUTS -->
+        <div class="section-label">COMPARE UP TO 3 COLLEGES</div>
+
+        <div class="college-inputs">
+          <!-- College 1 -->
+          <div class="college-slot" id="slot-0">
+            <div class="slot-header">
+              <span class="slot-num">01</span>
+              <span class="slot-title">First College</span>
+            </div>
+            <div class="search-wrap">
+              <input type="text" class="college-search" placeholder="Search college name..." data-index="0" autocomplete="off"/>
+              <div class="search-dropdown" id="dropdown-0"></div>
+            </div>
+            <div class="selected-college hidden" id="selected-0">
+              <span class="selected-name"></span>
+              <button class="clear-btn" data-index="0">✕</button>
+            </div>
+            <div class="toggle-wrap">
+              <span>In-State</span>
+              <label class="toggle">
+                <input type="checkbox" class="state-toggle" data-index="0">
+                <span class="slider"></span>
+              </label>
+              <span>Out-of-State</span>
+            </div>
+          </div>
+
+          <!-- College 2 -->
+          <div class="college-slot" id="slot-1">
+            <div class="slot-header">
+              <span class="slot-num">02</span>
+              <span class="slot-title">Second College</span>
+            </div>
+            <div class="search-wrap">
+              <input type="text" class="college-search" placeholder="Search college name..." data-index="1" autocomplete="off"/>
+              <div class="search-dropdown" id="dropdown-1"></div>
+            </div>
+            <div class="selected-college hidden" id="selected-1">
+              <span class="selected-name"></span>
+              <button class="clear-btn" data-index="1">✕</button>
+            </div>
+            <div class="toggle-wrap">
+              <span>In-State</span>
+              <label class="toggle">
+                <input type="checkbox" class="state-toggle" data-index="1">
+                <span class="slider"></span>
+              </label>
+              <span>Out-of-State</span>
+            </div>
+          </div>
+
+          <!-- College 3 -->
+          <div class="college-slot" id="slot-2">
+            <div class="slot-header">
+              <span class="slot-num">03</span>
+              <span class="slot-title">Third College <span class="optional">(optional)</span></span>
+            </div>
+            <div class="search-wrap">
+              <input type="text" class="college-search" placeholder="Search college name..." data-index="2" autocomplete="off"/>
+              <div class="search-dropdown" id="dropdown-2"></div>
+            </div>
+            <div class="selected-college hidden" id="selected-2">
+              <span class="selected-name"></span>
+              <button class="clear-btn" data-index="2">✕</button>
+            </div>
+            <div class="toggle-wrap">
+              <span>In-State</span>
+              <label class="toggle">
+                <input type="checkbox" class="state-toggle" data-index="2">
+                <span class="slider"></span>
+              </label>
+              <span>Out-of-State</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MAJOR + INCOME + YEARS -->
+        <div class="options-row">
+          <div class="option-group">
+            <label>INTENDED MAJOR</label>
+            <select id="major-select">
+              <option value="Computer Science">Computer Science</option>
+              <option value="Engineering">Engineering</option>
+              <option value="Business">Business</option>
+              <option value="Nursing">Nursing</option>
+              <option value="Pre-Med">Pre-Med</option>
+              <option value="Liberal Arts">Liberal Arts</option>
+              <option value="Education">Education</option>
+              <option value="Psychology">Psychology</option>
+            </select>
+          </div>
+
+          <div class="option-group">
+            <label>HOUSEHOLD INCOME</label>
+            <select id="income-select">
+              <option value="under_30k">Under $30,000</option>
+              <option value="30k_to_60k">$30,000 – $60,000</option>
+              <option value="60k_to_110k" selected>$60,000 – $110,000</option>
+              <option value="over_110k">Over $110,000</option>
+            </select>
+          </div>
+
+          <div class="option-group">
+            <label>YEARS TO GRADUATE</label>
+            <select id="years-select">
+              <option value="4" selected>4 Years</option>
+              <option value="5">5 Years</option>
+              <option value="6">6 Years</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="calculate-btn" class="calc-btn">
+          <span class="btn-text">CALCULATE MY ROI</span>
+          <span class="btn-arrow">→</span>
+        </button>
+
+        <div id="error-msg" class="error-msg hidden">Please select at least 2 colleges to compare.</div>
+
+      </div>
+    </main>
+  </div>
+
+
+  <!-- ======================== RESULTS PAGE ======================== -->
+  <div id="results-page" class="hidden">
+
+    <div class="results-header">
+      <button id="back-btn" class="back-btn">← BACK</button>
+      <div class="logo">COLLEGE<span>ROI</span></div>
+      <div class="results-subtitle">10-YEAR FINANCIAL ANALYSIS</div>
+    </div>
+
+    <!-- ROI SCORE CARDS -->
+    <section class="section">
+      <div class="section-title">ROI SCORE CARDS</div>
+      <div id="score-cards" class="score-cards"></div>
+    </section>
+
+    <!-- EARNINGS CHART -->
+    <section class="section">
+      <div class="section-title">PROJECTED EARNINGS OVER 14 YEARS</div>
+      <div class="chart-wrap">
+        <canvas id="earnings-chart"></canvas>
+      </div>
+    </section>
+
+    <!-- COMPARISON TABLE -->
+    <section class="section">
+      <div class="section-title">SIDE-BY-SIDE BREAKDOWN</div>
+      <div id="comparison-table" class="table-wrap"></div>
+    </section>
+
+    <!-- AI INSIGHTS -->
+    <section class="section">
+      <div class="section-title">AI FINANCIAL INTELLIGENCE</div>
+      <div id="ai-panel" class="ai-panel">
+        <div class="ai-loading">
+          <div class="spinner"></div>
+          <span>Analyzing financial data...</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPPORTUNITY COST -->
+    <section class="section">
+      <div class="section-title">OPPORTUNITY COST</div>
+      <div id="opportunity-cards" class="opportunity-cards"></div>
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+{
+    "Computer Science": {
+      "starting": 85000,
+      "year5": 110000,
+      "year10": 140000,
+      "growthRate": 0.06
+    },
+    "Business": {
+      "starting": 58000,
+      "year5": 72000,
+      "year10": 90000,
+      "growthRate": 0.05
+    },
+    "Engineering": {
+      "starting": 75000,
+      "year5": 95000,
+      "year10": 118000,
+      "growthRate": 0.055
+    },
+    "Liberal Arts": {
+      "starting": 42000,
+      "year5": 52000,
+      "year10": 63000,
+      "growthRate": 0.04
+    },
+    "Nursing": {
+      "starting": 65000,
+      "year5": 78000,
+      "year10": 95000,
+      "growthRate": 0.045
+    },
+    "Education": {
+      "starting": 38000,
+      "year5": 46000,
+      "year10": 55000,
+      "growthRate": 0.035
+    },
+    "Pre-Med": {
+      "starting": 55000,
+      "year5": 95000,
+      "year10": 180000,
+      "growthRate": 0.12
+    },
+    "Psychology": {
+      "starting": 38000,
+      "year5": 48000,
+      "year10": 58000,
+      "growthRate": 0.038
+    }
+  }
