@@ -1,208 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CollegeROI — Is Your Dream School Worth It?</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-  <!-- ======================== LANDING PAGE ======================== -->
-  <div id="landing-page">
+<!-- ======================== LANDING ======================== -->
+<div id="landing-page">
 
-    <div class="bg-grid"></div>
-    <div class="bg-glow"></div>
+  <header>
+    <div class="logo">COLLEGE<span>ROI</span></div>
+    <nav class="info-nav">
+      <button class="info-tab-btn" data-panel="roi">What is ROI?</button>
+      <button class="info-tab-btn" data-panel="matters">Why It Matters</button>
+      <button class="info-tab-btn" data-panel="fees">Hidden Fees</button>
+    </nav>
+  </header>
 
-    <header>
-      <div class="logo">COLLEGE<span>ROI</span></div>
-      <div class="tagline">INVISIBLE INFRASTRUCTURE EXPOSED</div>
-    </header>
-
-    <main class="hero">
-      <div class="hero-text">
-        <h1>IS YOUR<br/><span class="highlight">DREAM SCHOOL</span><br/>WORTH IT?</h1>
-        <p class="sub">Hidden financial systems silently decide your future.<br/>We make them visible.</p>
-      </div>
-
-      <div class="input-panel">
-
-        <!-- COLLEGE INPUTS -->
-        <div class="section-label">COMPARE UP TO 3 COLLEGES</div>
-
-        <div class="college-inputs">
-          <!-- College 1 -->
-          <div class="college-slot" id="slot-0">
-            <div class="slot-header">
-              <span class="slot-num">01</span>
-              <span class="slot-title">First College</span>
-            </div>
-            <div class="search-wrap">
-              <input type="text" class="college-search" placeholder="Search college name..." data-index="0" autocomplete="off"/>
-              <div class="search-dropdown" id="dropdown-0"></div>
-            </div>
-            <div class="selected-college hidden" id="selected-0">
-              <span class="selected-name"></span>
-              <button class="clear-btn" data-index="0">✕</button>
-            </div>
-            <div class="toggle-wrap">
-              <span>In-State</span>
-              <label class="toggle">
-                <input type="checkbox" class="state-toggle" data-index="0">
-                <span class="slider"></span>
-              </label>
-              <span>Out-of-State</span>
-            </div>
-          </div>
-
-          <!-- College 2 -->
-          <div class="college-slot" id="slot-1">
-            <div class="slot-header">
-              <span class="slot-num">02</span>
-              <span class="slot-title">Second College</span>
-            </div>
-            <div class="search-wrap">
-              <input type="text" class="college-search" placeholder="Search college name..." data-index="1" autocomplete="off"/>
-              <div class="search-dropdown" id="dropdown-1"></div>
-            </div>
-            <div class="selected-college hidden" id="selected-1">
-              <span class="selected-name"></span>
-              <button class="clear-btn" data-index="1">✕</button>
-            </div>
-            <div class="toggle-wrap">
-              <span>In-State</span>
-              <label class="toggle">
-                <input type="checkbox" class="state-toggle" data-index="1">
-                <span class="slider"></span>
-              </label>
-              <span>Out-of-State</span>
-            </div>
-          </div>
-
-          <!-- College 3 -->
-          <div class="college-slot" id="slot-2">
-            <div class="slot-header">
-              <span class="slot-num">03</span>
-              <span class="slot-title">Third College <span class="optional">(optional)</span></span>
-            </div>
-            <div class="search-wrap">
-              <input type="text" class="college-search" placeholder="Search college name..." data-index="2" autocomplete="off"/>
-              <div class="search-dropdown" id="dropdown-2"></div>
-            </div>
-            <div class="selected-college hidden" id="selected-2">
-              <span class="selected-name"></span>
-              <button class="clear-btn" data-index="2">✕</button>
-            </div>
-            <div class="toggle-wrap">
-              <span>In-State</span>
-              <label class="toggle">
-                <input type="checkbox" class="state-toggle" data-index="2">
-                <span class="slider"></span>
-              </label>
-              <span>Out-of-State</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- MAJOR + INCOME + YEARS -->
-        <div class="options-row">
-          <div class="option-group">
-            <label>INTENDED MAJOR</label>
-            <select id="major-select">
-              <option value="Computer Science">Computer Science</option>
-              <option value="Engineering">Engineering</option>
-              <option value="Business">Business</option>
-              <option value="Nursing">Nursing</option>
-              <option value="Pre-Med">Pre-Med</option>
-              <option value="Liberal Arts">Liberal Arts</option>
-              <option value="Education">Education</option>
-              <option value="Psychology">Psychology</option>
-            </select>
-          </div>
-
-          <div class="option-group">
-            <label>HOUSEHOLD INCOME</label>
-            <select id="income-select">
-              <option value="under_30k">Under $30,000</option>
-              <option value="30k_to_60k">$30,000 – $60,000</option>
-              <option value="60k_to_110k" selected>$60,000 – $110,000</option>
-              <option value="over_110k">Over $110,000</option>
-            </select>
-          </div>
-
-          <div class="option-group">
-            <label>YEARS TO GRADUATE</label>
-            <select id="years-select">
-              <option value="4" selected>4 Years</option>
-              <option value="5">5 Years</option>
-              <option value="6">6 Years</option>
-            </select>
-          </div>
-        </div>
-
-        <button id="calculate-btn" class="calc-btn">
-          <span class="btn-text">CALCULATE MY ROI</span>
-          <span class="btn-arrow">→</span>
-        </button>
-
-        <div id="error-msg" class="error-msg hidden">Please select at least 2 colleges to compare.</div>
-
-      </div>
-    </main>
+  <!-- INFO PANELS -->
+  <div class="info-panel" id="panel-roi">
+    <button class="panel-close">✕</button>
+    <h3>What is Return on Investment (ROI)?</h3>
+    <p>ROI measures whether your college degree pays off financially. We compare what you'll earn in 10 years against what you paid for school.</p>
+    <div class="info-grid">
+      <div class="info-box"><div class="info-box-label">NET ROI</div><div class="info-box-text">Total 10-year earnings minus total costs paid. Positive = your degree paid off financially.</div></div>
+      <div class="info-box"><div class="info-box-label">ROI GRADE (A+ to F)</div><div class="info-box-text">A+ means you earned 3× what you paid. F means your costs exceeded your earnings — a financial loss.</div></div>
+      <div class="info-box"><div class="info-box-label">BREAK-EVEN POINT</div><div class="info-box-text">The month post-graduation when cumulative earnings finally exceed your total education costs.</div></div>
+      <div class="info-box"><div class="info-box-label">DEBT-TO-INCOME RATIO</div><div class="info-box-text">Monthly loan payment ÷ monthly gross income. Lenders consider above 20% a financial stress indicator.</div></div>
+    </div>
   </div>
 
+  <div class="info-panel" id="panel-matters">
+    <button class="panel-close">✕</button>
+    <h3>The Invisible Infrastructure Behind Your College Bill</h3>
+    <p>Every college decision is processed through hidden systems that most students never learn exist — until they're paying them back.</p>
+    <div class="info-grid">
+      <div class="info-box"><div class="info-box-label">THE FAFSA ALGORITHM</div><div class="info-box-text">A government formula (EFC/SAI) silently calculates how much aid you qualify for. Most families don't know how it works or how to optimize it.</div></div>
+      <div class="info-box"><div class="info-box-label">FEDERAL LOAN SERVICERS</div><div class="info-box-text">Companies like Nelnet and MOHELA are assigned to collect your debt — you don't choose them. They manage a combined $1.7 trillion in student loans.</div></div>
+      <div class="info-box"><div class="info-box-label">COLLEGE SCORECARD API</div><div class="info-box-text">The US Dept. of Education tracks earnings outcomes for every college. We pull directly from this database — data most students never see before enrolling.</div></div>
+      <div class="info-box"><div class="info-box-label">BLS SALARY PIPELINE</div><div class="info-box-text">The Bureau of Labor Statistics tracks 800+ occupations. Their Occupational Employment Statistics (OES) shape salary expectations — we use the raw data directly.</div></div>
+    </div>
+  </div>
 
-  <!-- ======================== RESULTS PAGE ======================== -->
-  <div id="results-page" class="hidden">
+  <div class="info-panel" id="panel-fees">
+    <button class="panel-close">✕</button>
+    <h3>Hidden Fees: What No Acceptance Letter Mentions</h3>
+    <p>Tuition is just the start. Based on College Board 2023 data, here's what's hiding in your real bill:</p>
+    <div class="info-grid">
+      <div class="info-box"><div class="info-box-label">ROOM & BOARD · $12,990/yr</div><div class="info-box-text">On-campus housing and a meal plan. Over 4 years that's $51,960 — often MORE than in-state tuition at public universities.</div></div>
+      <div class="info-box"><div class="info-box-label">BOOKS & SUPPLIES · $1,240/yr</div><div class="info-box-text">Publishers release new editions every 3 years to prevent resale. That's $4,960 over 4 years just for reading material.</div></div>
+      <div class="info-box"><div class="info-box-label">PERSONAL EXPENSES · $2,120/yr</div><div class="info-box-text">College Board estimates $2,120/year in personal costs — clothing, toiletries, entertainment — for students living on campus.</div></div>
+      <div class="info-box"><div class="info-box-label">MANDATORY FEES · $400–$800/yr</div><div class="info-box-text">Student activity fees, health center fees, technology fees — charged to every student regardless of whether they use the services.</div></div>
+    </div>
+    <div class="info-total">True annual cost = Tuition + <strong>~$17,350–$21,150/year in additional costs</strong> · Source: College Board 2023</div>
+  </div>
 
-    <div class="results-header">
-      <button id="back-btn" class="back-btn">← BACK</button>
-      <div class="logo">COLLEGE<span>ROI</span></div>
-      <div class="results-subtitle">10-YEAR FINANCIAL ANALYSIS</div>
+  <main class="hero">
+    <div class="hero-text">
+      <div class="hero-eyebrow">INVISIBLE INFRASTRUCTURE EXPOSED</div>
+      <h1>Is Your<br><em>Dream School</em><br>Worth It?</h1>
+      <p class="sub">Hidden financial systems silently decide your future. We make the numbers visible before you sign.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">$1.7T</div>
+          <div class="hero-stat-label">Total US student debt outstanding</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">42%</div>
+          <div class="hero-stat-label">Grads who feel financially unprepared</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">10yr</div>
+          <div class="hero-stat-label">Standard federal loan repayment</div>
+        </div>
+      </div>
     </div>
 
-    <!-- ROI SCORE CARDS -->
-    <section class="section">
-      <div class="section-title">ROI SCORE CARDS</div>
-      <div id="score-cards" class="score-cards"></div>
-    </section>
+    <div class="input-panel">
+      <div class="section-label">COMPARE UP TO 3 COLLEGES</div>
 
-    <!-- EARNINGS CHART -->
-    <section class="section">
-      <div class="section-title">PROJECTED EARNINGS OVER 14 YEARS</div>
-      <div class="chart-wrap">
-        <canvas id="earnings-chart"></canvas>
-      </div>
-    </section>
+      <div class="college-inputs">
+        <div class="college-slot" id="slot-0">
+          <div class="slot-header"><span class="slot-num">01</span><span class="slot-title">First College</span></div>
+          <div class="search-wrap">
+            <input type="text" class="college-search" placeholder="Name or abbreviation (MIT, UCLA...)" data-index="0" autocomplete="off"/>
+            <div class="search-dropdown" id="dropdown-0"></div>
+          </div>
+          <div class="selected-college hidden" id="selected-0">
+            <span class="selected-name"></span>
+            <button class="clear-btn" data-index="0">✕</button>
+          </div>
+          <div class="toggle-wrap">
+            <span>In-State</span>
+            <label class="toggle"><input type="checkbox" class="state-toggle" data-index="0"><span class="slider"></span></label>
+            <span>Out-of-State</span>
+          </div>
+        </div>
 
-    <!-- COMPARISON TABLE -->
-    <section class="section">
-      <div class="section-title">SIDE-BY-SIDE BREAKDOWN</div>
-      <div id="comparison-table" class="table-wrap"></div>
-    </section>
+        <div class="college-slot" id="slot-1">
+          <div class="slot-header"><span class="slot-num">02</span><span class="slot-title">Second College</span></div>
+          <div class="search-wrap">
+            <input type="text" class="college-search" placeholder="Name or abbreviation (MIT, UCLA...)" data-index="1" autocomplete="off"/>
+            <div class="search-dropdown" id="dropdown-1"></div>
+          </div>
+          <div class="selected-college hidden" id="selected-1">
+            <span class="selected-name"></span>
+            <button class="clear-btn" data-index="1">✕</button>
+          </div>
+          <div class="toggle-wrap">
+            <span>In-State</span>
+            <label class="toggle"><input type="checkbox" class="state-toggle" data-index="1"><span class="slider"></span></label>
+            <span>Out-of-State</span>
+          </div>
+        </div>
 
-    <!-- AI INSIGHTS -->
-    <section class="section">
-      <div class="section-title">AI FINANCIAL INTELLIGENCE</div>
-      <div id="ai-panel" class="ai-panel">
-        <div class="ai-loading">
-          <div class="spinner"></div>
-          <span>Analyzing financial data...</span>
+        <div class="college-slot" id="slot-2">
+          <div class="slot-header"><span class="slot-num">03</span><span class="slot-title">Third College <span class="optional">(optional)</span></span></div>
+          <div class="search-wrap">
+            <input type="text" class="college-search" placeholder="Name or abbreviation (MIT, UCLA...)" data-index="2" autocomplete="off"/>
+            <div class="search-dropdown" id="dropdown-2"></div>
+          </div>
+          <div class="selected-college hidden" id="selected-2">
+            <span class="selected-name"></span>
+            <button class="clear-btn" data-index="2">✕</button>
+          </div>
+          <div class="toggle-wrap">
+            <span>In-State</span>
+            <label class="toggle"><input type="checkbox" class="state-toggle" data-index="2"><span class="slider"></span></label>
+            <span>Out-of-State</span>
+          </div>
         </div>
       </div>
-    </section>
 
-    <!-- OPPORTUNITY COST -->
-    <section class="section">
-      <div class="section-title">OPPORTUNITY COST</div>
-      <div id="opportunity-cards" class="opportunity-cards"></div>
-    </section>
+      <div class="options-row">
+        <div class="option-group">
+          <label>INTENDED MAJOR</label>
+          <select id="major-select">
+            <optgroup label="── Technology">
+              <option value="Computer Science">Computer Science</option>
+              <option value="Software Engineering">Software Engineering</option>
+              <option value="Data Science">Data Science</option>
+              <option value="Cybersecurity">Cybersecurity</option>
+              <option value="Information Technology">Information Technology</option>
+            </optgroup>
+            <optgroup label="── Engineering">
+              <option value="Electrical Engineering">Electrical Engineering</option>
+              <option value="Mechanical Engineering">Mechanical Engineering</option>
+              <option value="Chemical Engineering">Chemical Engineering</option>
+              <option value="Civil Engineering">Civil Engineering</option>
+              <option value="Biomedical Engineering">Biomedical Engineering</option>
+            </optgroup>
+            <optgroup label="── Business & Finance">
+              <option value="Finance">Finance</option>
+              <option value="Accounting">Accounting</option>
+              <option value="Business Administration">Business Administration</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Economics">Economics</option>
+              <option value="Supply Chain Management">Supply Chain Management</option>
+              <option value="Human Resources">Human Resources</option>
+            </optgroup>
+            <optgroup label="── STEM Sciences">
+              <option value="Statistics">Statistics</option>
+              <option value="Mathematics">Mathematics</option>
+              <option value="Biology">Biology</option>
+              <option value="Chemistry">Chemistry</option>
+              <option value="Environmental Science">Environmental Science</option>
+            </optgroup>
+            <optgroup label="── Health & Medicine">
+              <option value="Pre-Med">Pre-Med</option>
+              <option value="Nursing">Nursing</option>
+              <option value="Pharmacy">Pharmacy</option>
+              <option value="Public Health">Public Health</option>
+              <option value="Kinesiology / Exercise Science">Kinesiology / Exercise Science</option>
+            </optgroup>
+            <optgroup label="── Social Sciences">
+              <option value="Psychology">Psychology</option>
+              <option value="Sociology">Sociology</option>
+              <option value="Political Science">Political Science</option>
+              <option value="Criminal Justice">Criminal Justice</option>
+              <option value="Anthropology">Anthropology</option>
+              <option value="Social Work">Social Work</option>
+            </optgroup>
+            <optgroup label="── Arts & Humanities">
+              <option value="Liberal Arts">Liberal Arts</option>
+              <option value="English">English</option>
+              <option value="History">History</option>
+              <option value="Philosophy">Philosophy</option>
+              <option value="Communications">Communications</option>
+              <option value="Journalism">Journalism</option>
+              <option value="Architecture">Architecture</option>
+              <option value="Graphic Design">Graphic Design</option>
+            </optgroup>
+            <optgroup label="── Other">
+              <option value="Education (K-12)">Education (K-12)</option>
+              <option value="Hospitality Management">Hospitality Management</option>
+              <option value="Sports Management">Sports Management</option>
+            </optgroup>
+          </select>
+        </div>
 
+        <div class="option-group">
+          <label>HOUSEHOLD INCOME</label>
+          <select id="income-select">
+            <option value="under_30k">Under $30,000</option>
+            <option value="30k_to_60k">$30,000 – $60,000</option>
+            <option value="60k_to_110k" selected>$60,000 – $110,000</option>
+            <option value="over_110k">Over $110,000</option>
+          </select>
+        </div>
+
+        <div class="option-group">
+          <label>DEGREE TYPE</label>
+          <select id="degree-select">
+            <option value="associates">Associate's Degree (2 yrs)</option>
+            <option value="bachelors" selected>Bachelor's Degree (4 yrs)</option>
+            <option value="bachelors5">5-Year Program (5 yrs)</option>
+            <option value="masters">Bachelor's + Master's (6 yrs)</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="calculate-btn" class="calc-btn">
+        <span class="btn-text">CALCULATE MY ROI</span>
+        <span class="btn-arrow">→</span>
+      </button>
+      <div id="error-msg" class="error-msg hidden">Please select at least 2 colleges to compare.</div>
+      <div class="data-sources"><span>DATA SOURCES · </span>BLS OES 2023 · NACE 2023 Starting Salary Survey · US Dept. of Education College Scorecard · College Board 2023</div>
+    </div>
+  </main>
+</div>
+
+
+<!-- ======================== RESULTS ======================== -->
+<div id="results-page" class="hidden">
+  <div class="results-header">
+    <button id="back-btn" class="back-btn">← BACK</button>
+    <div class="logo">COLLEGE<span>ROI</span></div>
+    <div class="results-subtitle">10-YEAR FINANCIAL ANALYSIS</div>
   </div>
 
-  <script src="app.js"></script>
+  <section class="section">
+    <div class="section-title">ROI SCORE CARDS</div>
+    <div id="score-cards" class="score-cards"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">FINANCIAL WELLNESS INDICATORS</div>
+    <div id="wellness-cards" class="wellness-cards"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">PROJECTED EARNINGS OVER 14 YEARS</div>
+    <div class="chart-wrap"><canvas id="earnings-chart"></canvas></div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">HIDDEN FEES — THE TRUE COST OF ATTENDANCE</div>
+    <div id="hidden-fees" class="hidden-fees-grid"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">DETAILED SIDE-BY-SIDE BREAKDOWN</div>
+    <div id="comparison-table" class="table-wrap"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">YOUR COLLEGE JOURNEY — KEY MILESTONES</div>
+    <div id="journey-timeline" class="journey-timeline"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">AI FINANCIAL INTELLIGENCE</div>
+    <div id="ai-panel" class="ai-panel">
+      <div class="ai-loading"><div class="spinner"></div><span>Analyzing your financial data...</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">OPPORTUNITY COST</div>
+    <div id="opportunity-cards" class="opportunity-cards"></div>
+  </section>
+
+  <div class="sources-footer">
+    <strong>Data Sources & Methodology:</strong> Salary projections use NACE 2023 Starting Salary Survey for entry-level figures and BLS Occupational Employment & Wage Statistics (OES) May 2023 for growth rates. College cost and earnings outcomes from US Department of Education College Scorecard API (api.data.gov). Financial aid estimates based on published federal aid distribution averages. Hidden fee estimates from College Board 2023 Trends in College Pricing report. Loan calculations use 2023–24 federal undergraduate direct loan rate of 6.5% over standard 10-year repayment (120 payments). Opportunity cost uses historical S&P 500 average annual return of 7% (inflation-adjusted). All projections are estimates — actual results will vary based on individual performance, employer, location, and market conditions. This tool is for educational purposes only.
+  </div>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>

@@ -127,31 +127,25 @@ app.get('/api/college/:id', async (req, res) => {
 // ============================================
 app.post('/api/ai-insights', async (req, res) => {
   const { colleges, major } = req.body;
-
-  // Build a description of each college for the AI
   const collegeDescriptions = colleges.map((c, i) =>
     `College ${i + 1}: ${c.name}
-    - Total Cost: $${c.totalCost.toLocaleString()}
+    - Total Out-of-Pocket Cost: $${c.totalCost.toLocaleString()}
     - Starting Salary for ${major}: $${c.startingSalary.toLocaleString()}
     - Net ROI after 10 years: $${c.netROI.toLocaleString()}
     - ROI Grade: ${c.grade}
     - Monthly Loan Payment: $${c.monthlyPayment.toLocaleString()}
-    - Break Even Month: ${c.breakEvenMonth}`
+    - Debt-to-Income Ratio: ${c.debtToIncome}%
+    - Monthly Disposable After Loans + Living: $${c.disposableIncome}`
   ).join('\n\n');
 
-  const prompt = `You are a brutally honest college financial advisor helping a high school student understand the hidden financial infrastructure behind their college decision.
-
-Here is the ROI data for the colleges they are comparing, for a student studying ${major}:
+  const prompt = `You are a brutally honest college financial advisor. A high school student is comparing colleges for ${major}.
 
 ${collegeDescriptions}
 
-Respond with ONLY a valid JSON object (no extra text, no markdown, no backticks) in this exact format:
-{
-  "verdict": "2 sentence overall comparison of which college is the best financial choice and why",
-  "warnings": ["hidden cost warning specific to college 1", "hidden cost warning specific to college 2", "hidden cost warning specific to college 3"],
-  "wildCard": "one surprising factor that could completely change this analysis",
-  "funStat": "one shocking fun comparison stat that puts these numbers in perspective"
-}`;
+Return ONLY a raw JSON object. No markdown, no backticks, no explanation. Exactly this format:
+{"verdict":"2 sentence comparison of which is best financially and why","warnings":["specific hidden cost warning for college 1","specific hidden cost warning for college 2","specific hidden cost warning for college 3"],"wildCard":"one factor not in the data that could change everything","funStat":"one shocking real-world comparison that puts these numbers in perspective"}
+
+Make warnings specific to each college name. Keep all values as strings.`;
 
   try {
     const completion = await groq.chat.completions.create({
@@ -160,26 +154,21 @@ Respond with ONLY a valid JSON object (no extra text, no markdown, no backticks)
       temperature: 0.7,
       max_tokens: 1000
     });
-
-    // Get the text response from Groq
-    const text = completion.choices[0].message.content;
-
-    // Parse it as JSON
-    const insights = JSON.parse(text);
+    let text = completion.choices[0].message.content;
+    // Strip markdown code blocks if Groq added them
+    text = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    // Extract just the JSON object if there's extra text
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error('No JSON found');
+    const insights = JSON.parse(jsonMatch[0]);
     res.json(insights);
-
   } catch (error) {
     console.error('AI insights error:', error);
-    // If AI fails, send backup response so app still works
     res.json({
-      verdict: "Based on the ROI data, focus on the college with the highest net return relative to its cost. Consider your earning potential in " + major + " carefully.",
-      warnings: [
-        "Watch out for hidden fees like room and board, books, and transportation on top of tuition.",
-        "Student loan interest compounds — your actual repayment total will be higher than the loan amount.",
-        "Starting salary data is an average — your individual outcome depends heavily on internships and networking."
-      ],
-      wildCard: "Scholarship opportunities not reflected in sticker price could completely change this comparison — always apply for FAFSA and outside scholarships.",
-      funStat: "The average student spends $3,000+ per year on textbooks and supplies — that's $12,000 over 4 years not included in tuition costs!"
+      verdict: `For ${major}, compare the debt-to-income ratio carefully — this determines your financial stress level for the entire first decade of your career.`,
+      warnings: colleges.map(c => `At ${c.name}, watch for hidden costs like mandatory fees, room & board, and textbooks adding $15,000–$20,000/year beyond tuition.`),
+      wildCard: "Scholarship opportunities and employer tuition reimbursement programs could completely change this comparison — always negotiate your financial aid package.",
+      funStat: "The average student spends $1,240/year on textbooks alone — publishers release new editions every 3 years specifically to prevent resale of older copies."
     });
   }
 });
