@@ -3,102 +3,77 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ClearPath — Your College ROI Decoded</title>
+  <title>ClearPath — Is Your College Worth It?</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Satoshi:wght@300;400;500;700;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-<!-- LANDING -->
+<!-- ═══ LANDING ═══ -->
 <div id="landing-page">
   <header>
     <div class="logo">CLEAR<span>PATH</span></div>
     <nav class="info-nav">
       <button class="info-tab-btn" data-panel="roi">What is ROI?</button>
-      <button class="info-tab-btn" data-panel="matters">Why It Matters</button>
-      <button class="info-tab-btn" data-panel="fees">Hidden Fees</button>
+      <button class="info-tab-btn" data-panel="matters">Why This Matters</button>
+      <button class="info-tab-btn" data-panel="fees">Hidden Costs</button>
       <button class="nav-about-btn" onclick="showPage('about-page')">About Us</button>
     </nav>
   </header>
 
-  <!-- INFO PANELS -->
   <div class="info-panel" id="panel-roi">
     <button class="panel-close">✕</button>
     <h3>What is Return on Investment (ROI)?</h3>
-    <p>ROI measures whether your degree pays off financially over 10 years versus what you paid for school.</p>
+    <p>ROI answers: "Will this degree pay off financially?" We calculate over 10 years after graduation — but we also factor in school prestige, network quality, and career outcomes.</p>
     <div class="info-grid">
-      <div class="info-box"><div class="info-box-label">OVERALL SCORE</div><div class="info-box-text">Our composite uses absolute real-world benchmarks — DTI (27%), ROI grade (22%), monthly payment (20%), wellness (14%), interest (10%), salary-to-debt (7%). Scores reflect actual financial health, not just which school is cheaper.</div></div>
-      <div class="info-box"><div class="info-box-label">NET ROI</div><div class="info-box-text">Total 10-year earnings minus all costs. Positive = your degree paid off. This is one factor, not the whole picture.</div></div>
-      <div class="info-box"><div class="info-box-label">BREAK-EVEN AGE</div><div class="info-box-text">The exact age when cumulative earnings finally exceed total costs paid. The sooner, the better.</div></div>
-      <div class="info-box"><div class="info-box-label">DEBT-TO-INCOME</div><div class="info-box-text">Monthly loan ÷ monthly gross income. Above 20% signals a decade of financial stress. The #1 quality-of-life killer.</div></div>
+      <div class="info-box"><div class="info-box-label">COMPOSITE SCORE (0–100)</div><div class="info-box-text">Combines financial ROI (50%), prestige & rigor (25%), and student outcomes (25%). An Ivy League school at high cost can still outscore a cheap school because of lifetime network value and salary trajectory.</div></div>
+      <div class="info-box"><div class="info-box-label">PRESTIGE FACTOR</div><div class="info-box-text">Admission selectivity, graduation rates, real IRS-verified earnings, and employer recognition all factor in. Elite schools cost more but produce measurably different career outcomes over a lifetime.</div></div>
+      <div class="info-box"><div class="info-box-label">NET GAIN</div><div class="info-box-text">Total 10-year earnings minus all costs paid. Positive = degree paid off. We then weight by prestige because not all earnings gains come from ROI alone — your network and brand matter.</div></div>
+      <div class="info-box"><div class="info-box-label">BREAK EVEN</div><div class="info-box-text">When your cumulative earnings finally exceed all costs. Elite schools often break even later but earn significantly more per year in the 5–15 year window.</div></div>
     </div>
   </div>
 
   <div class="info-panel" id="panel-matters">
     <button class="panel-close">✕</button>
     <h3>The Hidden Systems Behind Your College Bill</h3>
-    <p>Every college decision is processed through hidden systems most students never learn exist — until they're paying them back for a decade.</p>
+    <p>The decision you make at 17 runs through government algorithms, federal loan servicers, and salary data pipelines most students never see.</p>
     <div class="info-grid">
-      <div class="info-box"><div class="info-box-label">THE FAFSA ALGORITHM</div><div class="info-box-text">A government formula (SAI) silently calculates your aid eligibility. Most families never learn how to optimize it.</div></div>
-      <div class="info-box"><div class="info-box-label">FEDERAL LOAN SERVICERS</div><div class="info-box-text">Companies like Nelnet and MOHELA are assigned to collect your debt — you don't choose them. They manage $1.7 trillion in loans.</div></div>
-      <div class="info-box"><div class="info-box-label">COLLEGE SCORECARD API</div><div class="info-box-text">The US Dept. of Education tracks earnings outcomes for every school. We pull from this database — data most students never see.</div></div>
-      <div class="info-box"><div class="info-box-label">BLS SALARY PIPELINE</div><div class="info-box-text">The Bureau of Labor Statistics tracks 800+ occupations. Their OES data shapes salary expectations — we use the raw numbers.</div></div>
+      <div class="info-box"><div class="info-box-label">FAFSA ALGORITHM (SAI)</div><div class="info-box-text">A government formula silently calculates how much your family "can" pay. Most families never learn how it works — or that you can appeal it.</div></div>
+      <div class="info-box"><div class="info-box-label">COLLEGE SCORECARD</div><div class="info-box-text">The US Dept. of Education tracks IRS-verified earnings for every school's graduates. We pull this live — it's the most accurate salary data available.</div></div>
+      <div class="info-box"><div class="info-box-label">PRESTIGE NETWORK</div><div class="info-box-text">Studies show elite school alumni networks produce 15–30% higher salaries at the 10-year mark vs. comparable students at regional schools.</div></div>
+      <div class="info-box"><div class="info-box-label">BLS + NACE DATA</div><div class="info-box-text">We blend Bureau of Labor Statistics occupational data with NACE salary surveys and school-specific Scorecard earnings for the most accurate projections.</div></div>
     </div>
   </div>
 
   <div class="info-panel" id="panel-fees">
     <button class="panel-close">✕</button>
-    <h3>Hidden Fees: What No Acceptance Letter Mentions</h3>
-    <p>Tuition is just the start. College Board 2023 data:</p>
+    <h3>Hidden Costs — What No Acceptance Letter Mentions</h3>
+    <p>Tuition is one part of what you actually pay. Source: College Board Trends in College Pricing 2024–25.</p>
     <div class="info-grid">
-      <div class="info-box"><div class="info-box-label">ROOM & BOARD · $12,990/yr</div><div class="info-box-text">Over 4 years that's $51,960 — often more than in-state tuition at public universities.</div></div>
-      <div class="info-box"><div class="info-box-label">BOOKS & SUPPLIES · $1,240/yr</div><div class="info-box-text">Publishers release new editions every 3 years to kill the resale market. $4,960 over 4 years just for reading material.</div></div>
-      <div class="info-box"><div class="info-box-label">PERSONAL EXPENSES · $2,120/yr</div><div class="info-box-text">College Board estimates $2,120/yr in personal costs for on-campus students — not including entertainment or travel.</div></div>
-      <div class="info-box"><div class="info-box-label">MANDATORY FEES · $400–$800/yr</div><div class="info-box-text">Student activity fees, health center, tech fees — charged to every student regardless of whether they use them.</div></div>
+      <div class="info-box"><div class="info-box-label">ROOM &amp; BOARD · $14,470/yr</div><div class="info-box-text">On-campus housing and meal plan average $14,470/yr. Over 4 years: $57,880 — often more than in-state tuition.</div></div>
+      <div class="info-box"><div class="info-box-label">BOOKS &amp; SUPPLIES · $1,240/yr</div><div class="info-box-text">Publishers release new editions every 3 years to kill resale value. Plan for $4,960 over 4 years.</div></div>
+      <div class="info-box"><div class="info-box-label">PERSONAL EXPENSES · $2,020/yr</div><div class="info-box-text">Clothing, laundry, toiletries — College Board estimates $2,020/yr not including entertainment.</div></div>
+      <div class="info-box"><div class="info-box-label">MANDATORY FEES · $900/yr</div><div class="info-box-text">Student activity, health center, technology fees — charged to every student whether you use them or not.</div></div>
     </div>
-    <div class="info-total">True annual cost = Tuition + <strong>~$18,760–$22,760/year in extras</strong> · Source: College Board 2024–25</div>
+    <div class="info-total">True annual cost = Tuition + roughly <strong>$21,000–$23,000/year in additional costs</strong></div>
   </div>
 
   <main class="hero">
     <div class="hero-text">
-      <div class="hero-eyebrow">FINANCIAL CLARITY FOR COLLEGE</div>
+      <div class="hero-eyebrow">COLLEGE FINANCIAL ANALYSIS</div>
       <h1>Is Your<br><em>Dream School</em><br>Worth It?</h1>
-      <p class="sub">Most students pick a college based on rankings and gut feeling — with almost no understanding of what it will actually cost or whether the degree pays off. We change that.</p>
+      <p class="sub">Most students choose a college based on rankings and gut feeling — with no idea what it will actually cost or whether the degree pays off. We run the real numbers.</p>
       <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="hero-stat-num">$1.7T</div>
-          <div class="hero-stat-label">Total US student debt</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num">42%</div>
-          <div class="hero-stat-label">Grads financially unprepared</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num">10yr</div>
-          <div class="hero-stat-label">Standard loan repayment</div>
-        </div>
-      </div>
-
-      <!-- PHOTO UPLOAD DIV -->
-      <div class="photo-upload-area" id="photo-upload-area">
-        <div class="photo-upload-inner" id="photo-upload-inner">
-          <div class="photo-upload-icon">🎓</div>
-          <div class="photo-upload-title">Add Your Photo</div>
-          <div class="photo-upload-hint">Click to upload or drag & drop<br><span>PNG, JPG up to 5MB</span></div>
-          <input type="file" id="photo-file-input" accept="image/*" style="display:none"/>
-        </div>
-        <img id="photo-preview" class="photo-preview hidden" alt="Your photo"/>
-        <button id="photo-remove-btn" class="photo-remove-btn hidden">✕ Remove</button>
+        <div class="hero-stat"><div class="hero-stat-num">$1.7T</div><div class="hero-stat-label">Total US student debt</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">21 yrs</div><div class="hero-stat-label">Average time to repay</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">27%</div><div class="hero-stat-label">Grads work in their field</div></div>
       </div>
     </div>
 
     <div class="input-panel">
-
-      <!-- STUDENT PROFILE -->
-      <div class="section-label">STUDENT PROFILE</div>
+      <div class="section-label">YOUR PROFILE</div>
       <div class="profile-grid">
         <div class="profile-field">
           <label>GPA RANGE</label>
@@ -113,10 +88,6 @@
             </select>
             <span class="select-arrow">↓</span>
           </div>
-        </div>
-        <div class="profile-field">
-          <label>SAT / ACT SCORE</label>
-          <input type="text" id="sat-input" class="profile-input" placeholder="e.g. 1350 SAT or 29 ACT" />
         </div>
         <div class="profile-field">
           <label>STATE OF RESIDENCE</label>
@@ -140,71 +111,83 @@
             <span class="select-arrow">↓</span>
           </div>
         </div>
-        <div class="profile-field">
-          <label>FIRST-GEN STUDENT?</label>
+        <div class="profile-field" style="grid-column: 1 / -1;">
+          <label>FIRST-GEN COLLEGE STUDENT?</label>
           <div class="toggle-field">
             <label class="toggle"><input type="checkbox" id="firstgen-toggle"><span class="slider"></span></label>
             <span id="firstgen-label" class="toggle-label">No</span>
           </div>
-          <div id="firstgen-note" class="firstgen-note hidden">You may qualify for additional grants & support programs</div>
+          <div id="firstgen-note" class="firstgen-note hidden">You may qualify for additional grants and support programs</div>
         </div>
       </div>
 
-      <!-- COLLEGES -->
-      <div class="section-label" style="margin-top:24px">COMPARE UP TO 5 COLLEGES</div>
-      <div class="college-inputs" id="college-inputs-container"></div>
-      <button id="add-college-btn" class="add-college-btn">+ Add Another College</button>
+      <div class="section-label" style="margin-top:22px">WHAT YOU WANT TO STUDY</div>
+      <div id="majors-list">
+        <div class="major-row" id="major-row-0">
+          <div class="major-row-inner">
+            <div class="major-input-wrap" style="flex:1">
+              <input type="text" class="profile-input major-search-input" id="major-input-0"
+                placeholder="Type your major (e.g. Computer Science, Finance...)" autocomplete="off" value="Computer Science"/>
+              <div class="major-dropdown hidden" id="major-dropdown-0"></div>
+              <input type="hidden" id="major-hidden-0" value="Computer Science"/>
+            </div>
+            <div class="major-weight-badge">65% weight</div>
+          </div>
+        </div>
+      </div>
+      <button id="add-major-btn" class="add-minor-btn">+ Add a second major or minor</button>
+      <div class="major-note">Adding a minor blends salary data into your projections</div>
 
-      <!-- FINANCIAL INPUTS -->
-      <div class="section-label" style="margin-top:24px">FINANCIAL DETAILS</div>
+      <div class="section-label" style="margin-top:22px">COLLEGES TO COMPARE (2–5)</div>
+      <div id="college-inputs-container"></div>
+      <button id="add-college-btn" class="add-college-btn">+ Add Another College to Compare</button>
+
+      <div class="section-label" style="margin-top:22px">YOUR FINANCIAL SITUATION</div>
       <div class="financial-grid">
         <div class="option-group">
-          <label>HOUSEHOLD INCOME</label>
-          <div class="income-input-wrap"><span class="income-dollar">$</span><input type="text" id="income-input" class="income-input" placeholder="75000" maxlength="9"/></div>
-          <div class="income-bracket-display" id="income-bracket-display">Enter your household income</div>
-        </div>
-        <div class="option-group">
-          <label>MERIT AID / YR (if known)</label>
-          <div class="income-input-wrap"><span class="income-dollar">$</span><input type="text" id="merit-aid-input" class="income-input" placeholder="0" maxlength="8"/></div>
-          <div class="income-bracket-display">Annual scholarships or grants expected</div>
-        </div>
-        <div class="option-group">
-          <label>EFC FROM FAFSA <span class="field-info-icon" data-tip="efc">?</span></label>
-          <div class="income-input-wrap"><span class="income-dollar">$</span><input type="text" id="efc-input" class="income-input" placeholder="Leave blank to estimate" maxlength="8"/></div>
-          <div class="field-explainer">
-            <strong>Expected Family Contribution</strong> — the number FAFSA calculates your family can afford to pay per year. Find it on your Student Aid Report after filing. Lower EFC = more need-based aid. Leave blank to use our estimate based on income.
+          <label>HOUSEHOLD INCOME (before taxes)</label>
+          <div class="income-input-wrap">
+            <span class="income-dollar">$</span>
+            <input type="text" id="income-input" class="income-input" placeholder="75000" maxlength="9"/>
           </div>
+          <div class="income-bracket-display" id="income-bracket-display">Enter your household income to see your aid estimate</div>
         </div>
         <div class="option-group">
-          <label>PLANNED LOANS / YR <span class="field-info-icon" data-tip="loans">?</span></label>
-          <div class="income-input-wrap"><span class="income-dollar">$</span><input type="text" id="planned-loan-input" class="income-input" placeholder="7500" maxlength="8"/></div>
-          <div class="field-explainer">
-            <strong>Federal student loan limits:</strong> Year 1: $5,500 · Year 2: $6,500 · Years 3–4: $7,500/yr (max $31,000 total for dependents). Private loans have no cap but higher rates. We recommend sticking to federal limits — private loans can trap you with variable rates up to 14%.
+          <label>SCHOLARSHIPS OR GRANTS (per year)</label>
+          <div class="income-input-wrap">
+            <span class="income-dollar">$</span>
+            <input type="text" id="merit-aid-input" class="income-input" placeholder="0" maxlength="8"/>
           </div>
+          <div class="income-bracket-display">External scholarships you already have</div>
+        </div>
+        <div class="option-group">
+          <label>YOUR FAFSA EFC / SAI</label>
+          <div class="income-input-wrap">
+            <span class="income-dollar">$</span>
+            <input type="text" id="efc-input" class="income-input" placeholder="Leave blank to estimate" maxlength="8"/>
+          </div>
+          <div class="field-explainer">From your Student Aid Report after FAFSA. Leave blank to auto-estimate.</div>
+        </div>
+        <div class="option-group">
+          <label>PLANNED ANNUAL BORROWING</label>
+          <div class="income-input-wrap">
+            <span class="income-dollar">$</span>
+            <input type="text" id="planned-loan-input" class="income-input" placeholder="Auto-calculate" maxlength="8"/>
+          </div>
+          <div class="field-explainer">Federal limits: Yr 1 $5,500 · Yr 2 $6,500 · Yrs 3–4 $7,500. Blank = we calculate.</div>
         </div>
       </div>
 
-      <!-- MAJOR + DEGREE -->
-      <div class="options-row">
-        <div class="option-group">
-          <label>INTENDED MAJOR</label>
-          <div class="major-input-wrap">
-            <input type="text" id="major-input" class="profile-input major-search-input" placeholder="Type your major (e.g. Computer Science)" autocomplete="off"/>
-            <div class="major-dropdown hidden" id="major-dropdown"></div>
-            <input type="hidden" id="major-select" value="Computer Science"/>
-          </div>
-        </div>
-        <div class="option-group">
-          <label>DEGREE TYPE</label>
-          <div class="custom-select-wrap">
-            <select id="degree-select" class="custom-select">
-              <option value="associates">Associate's (2 yrs)</option>
-              <option value="bachelors" selected>Bachelor's (4 yrs)</option>
-              <option value="bachelors5">5-Year Program</option>
-              <option value="masters">Bachelor's + Master's (6 yrs)</option>
-            </select>
-            <span class="select-arrow">↓</span>
-          </div>
+      <div class="option-group" style="margin-top:16px">
+        <label>DEGREE YOU ARE PURSUING</label>
+        <div class="custom-select-wrap">
+          <select id="degree-select" class="custom-select">
+            <option value="associates">Associate's Degree (2 years)</option>
+            <option value="bachelors" selected>Bachelor's Degree (4 years)</option>
+            <option value="bachelors5">5-Year Program</option>
+            <option value="masters">Bachelor's + Master's (6 years)</option>
+          </select>
+          <span class="select-arrow">↓</span>
         </div>
       </div>
 
@@ -213,166 +196,88 @@
         <span class="btn-arrow">→</span>
       </button>
       <div id="error-msg" class="error-msg hidden">Please select at least 2 colleges to compare.</div>
-      <div id="state-error-msg" class="state-error-msg hidden"></div>
-      <div class="data-sources">DATA SOURCES · BLS OES 2024 · NACE Salary Survey 2024 · US Dept. of Education College Scorecard · College Board Trends 2024–25 · CFPB Debt Guidelines</div>
+      <div class="data-sources">Data: US Dept. of Education College Scorecard · Bureau of Labor Statistics · NACE 2024 · College Board 2024–25</div>
     </div>
   </main>
 </div>
 
 
-<!-- RESULTS -->
+<!-- ═══ RESULTS ═══ -->
 <div id="results-page" class="hidden">
   <div class="results-header">
-    <button id="back-btn" class="back-btn">← BACK</button>
+    <button id="back-btn" class="back-btn">← Back</button>
     <div class="logo">CLEAR<span>PATH</span></div>
     <div class="results-subtitle">10-YEAR FINANCIAL ANALYSIS</div>
   </div>
 
   <div class="results-layout">
-    <!-- LEFT SIDEBAR NAV -->
-    <nav class="results-sidenav" id="results-sidenav">
-      <div class="sidenav-label">SECTIONS</div>
-      <a class="sidenav-item active" href="#section-recommended" data-section="section-recommended">
-        <span>Recommended</span>
-      </a>
-      <a class="sidenav-item" href="#section-scores" data-section="section-scores">
-        <span>Score Cards</span>
-      </a>
-      <a class="sidenav-item" href="#section-glance" data-section="section-glance">
-        <span>At a Glance</span>
-      </a>
-      <a class="sidenav-item" href="#section-wellness" data-section="section-wellness">
-        <span>Wellness</span>
-      </a>
-      <a class="sidenav-item" href="#section-chart" data-section="section-chart">
-        <span>Earnings</span>
-      </a>
-      <a class="sidenav-item" href="#section-fees" data-section="section-fees">
-        <span>Hidden Fees</span>
-      </a>
-      <a class="sidenav-item" href="#section-table" data-section="section-table">
-        <span>Comparison</span>
-      </a>
-      <a class="sidenav-item" href="#section-journey" data-section="section-journey">
-        <span>Journey</span>
-      </a>
-      <a class="sidenav-item" href="#section-ai" data-section="section-ai">
-        <span>AI Insights</span>
-      </a>
-      <a class="sidenav-item" href="#section-opp" data-section="section-opp">
-        <span>Opportunity</span>
-      </a>
-      <a class="sidenav-item" href="#section-sources" data-section="section-sources">
-        <span>Sources</span>
-      </a>
+    <nav class="results-sidenav">
+      <div class="sidenav-label">JUMP TO</div>
+      <a class="sidenav-item active" href="#section-scores"     data-section="section-scores">Score Cards</a>
+      <a class="sidenav-item"       href="#section-chart"      data-section="section-chart">Earnings</a>
+      <a class="sidenav-item"       href="#section-cumulative" data-section="section-cumulative">Break Even</a>
+      <a class="sidenav-item"       href="#section-table"      data-section="section-table">Comparison</a>
+      <a class="sidenav-item"       href="#section-journey"    data-section="section-journey">Journey</a>
+      <a class="sidenav-item"       href="#section-ai"         data-section="section-ai">AI Insights</a>
     </nav>
 
-    <!-- MAIN CONTENT -->
     <div class="results-main">
-      <section class="section" id="section-recommended">
-        <div class="section-title">RECOMMENDED FOR YOU</div>
-        <div id="recommended-panel" class="recommended-panel">
-          <div class="ai-loading"><div class="spinner"></div><span>Finding your best match...</span></div>
-        </div>
-      </section>
-
       <section class="section" id="section-scores">
-        <div class="section-title">OVERALL SCORE CARDS</div>
-        <div class="score-cards-note">Absolute scores using real-world benchmarks · DTI (27%) · ROI Grade (22%) · Monthly Payment (20%) · Wellness (14%) · Interest (10%) · Salary-to-Debt (7%)</div>
+        <div class="section-title">SCORE CARDS — YOUR PERSONALIZED COMPARISON</div>
+        <div class="section-note">Composite score weights financial ROI (50%), institutional prestige & rigor (25%), and student outcomes (25%). A prestigious school at higher cost can still score highest because of lifetime career impact.</div>
         <div id="score-cards" class="score-cards"></div>
       </section>
 
-      <section class="section" id="section-glance">
-        <div class="section-title">AT A GLANCE — KEY NUMBERS</div>
-        <div id="results-summary" class="results-summary"></div>
-      </section>
-
-      <section class="section" id="section-wellness">
-        <div class="section-title">FINANCIAL WELLNESS INDICATORS</div>
-        <div id="wellness-cards" class="wellness-cards"></div>
-      </section>
-
       <section class="section" id="section-chart">
-        <div class="section-title">PROJECTED EARNINGS OVER 14 YEARS</div>
+        <div class="section-title">PROJECTED EARNINGS — YEAR BY YEAR</div>
+        <div class="section-note">$0 during school years. Dashed line = graduation. Elite schools produce steeper salary growth curves post-graduation.</div>
         <div class="chart-wrap"><canvas id="earnings-chart"></canvas></div>
       </section>
 
-      <section class="section" id="section-fees">
-        <div class="section-title">HIDDEN FEES — TRUE COST OF ATTENDANCE</div>
-        <div id="hidden-fees" class="hidden-fees-grid"></div>
+      <section class="section" id="section-cumulative">
+        <div class="section-title">BREAK EVEN — WHEN EARNINGS OUTPACE TOTAL COSTS</div>
+        <div class="section-note">The moment the line crosses zero, your degree financially pays off. Elite schools may break even later but often reach a much higher ceiling.</div>
+        <div class="chart-wrap"><canvas id="cumulative-chart"></canvas></div>
       </section>
 
       <section class="section" id="section-table">
-        <div class="section-title">DETAILED SIDE-BY-SIDE BREAKDOWN</div>
+        <div class="section-title">FULL SIDE-BY-SIDE COMPARISON</div>
+        <div class="section-note">🟢 Green = best. 🔴 Red = worst. 🟡 Yellow = middle. All numbers use your actual income, major, and school data.</div>
         <div id="comparison-table" class="table-wrap"></div>
       </section>
 
       <section class="section" id="section-journey">
-        <div class="section-title">YOUR COLLEGE JOURNEY — KEY MILESTONES</div>
+        <div class="section-title">YOUR FINANCIAL JOURNEY — KEY MILESTONES</div>
+        <div class="section-note">A simplified financial timeline from enrollment through your 10-year mark.</div>
         <div id="journey-timeline" class="journey-timeline"></div>
       </section>
 
       <section class="section" id="section-ai">
-        <div class="section-title">AI FINANCIAL INTELLIGENCE</div>
+        <div class="section-title">AI FINANCIAL ADVISOR — PERSONALIZED INSIGHTS</div>
+        <div class="section-note">Generated from your exact numbers. Considers both financial ROI and institutional quality.</div>
         <div id="ai-panel" class="ai-panel">
-          <div class="ai-loading"><div class="spinner"></div><span>Analyzing your financial data...</span></div>
+          <div class="ai-loading"><div class="spinner"></div><span>Analyzing your comparison...</span></div>
         </div>
-      </section>
-
-      <section class="section" id="section-opp">
-        <div class="section-title">OPPORTUNITY COST — WHAT ELSE YOUR MONEY COULD DO</div>
-        <div id="opportunity-cards" class="opportunity-cards"></div>
-      </section>
-
-      <section class="section" id="section-sources">
-        <div class="section-title">DATA SOURCES & METHODOLOGY</div>
-        <div class="sources-grid">
-          <div class="source-card">
-            <div class="source-card-title">SALARY DATA</div>
-            <div class="source-card-body">Starting salaries from <strong>NACE Salary Survey, Spring 2024</strong> (National Association of Colleges and Employers). Growth rates from <strong>BLS Employment Cost Index 2024</strong> and PayScale compensation research. Per-school earnings from <strong>US Dept. of Education College Scorecard 2022-23</strong> institutional data. Blended 50/50: BLS national average + school-specific 6-year graduate outcomes.</div>
-          </div>
-          <div class="source-card">
-            <div class="source-card-title">COLLEGE COSTS</div>
-            <div class="source-card-body">Tuition and cost of attendance from <strong>US Dept. of Education College Scorecard API</strong> (live federal data). Hidden fees from <strong>College Board Trends in College Pricing 2024-25</strong>: Room & Board $14,470 avg, Books $1,240, Personal $2,020, Transportation $1,230, Tech/Fees $900, Health Insurance $2,900.</div>
-          </div>
-          <div class="source-card">
-            <div class="source-card-title">FINANCIAL AID MODEL</div>
-            <div class="source-card-body">Family contribution estimated using <strong>Federal Student Aid EFC Formula Guide 2024-25</strong> simplified need analysis (studentaid.gov). Income Protection Allowances from 2024-25 federal tables. Need coverage rates from <strong>NACUBO FY2024 Study of Endowments</strong> and <strong>College Board Institutional Aid data</strong>: Elite private ~97%, Strong private ~76%, Average private ~57%, Public flagship ~35%.</div>
-          </div>
-          <div class="source-card">
-            <div class="source-card-title">LOAN CALCULATIONS</div>
-            <div class="source-card-body">Federal Direct Unsubsidized Loan rate: <strong>6.53% (2024-25)</strong> per studentaid.gov. Standard 10-year repayment plan. Interest accrual modeled from disbursement date — earlier loans compound longer before repayment begins. Tax rate: 25.6% effective (13% federal + 5% state avg + 7.65% FICA per <strong>Tax Foundation 2024</strong>).</div>
-          </div>
-          <div class="source-card">
-            <div class="source-card-title">COMPOSITE SCORE</div>
-            <div class="source-card-body">Absolute scoring using real-world benchmarks (not relative normalization). DTI thresholds from <strong>CFPB Qualified Mortgage Rule</strong>. Salary-to-debt benchmarks from consumer finance research. Weights: DTI 27% · ROI Grade 22% · Monthly Payment 20% · Wellness 14% · Interest 10% · Salary-to-Debt 7%. Small relative tie-breaker (±8 pts) separates similar schools.</div>
-          </div>
-          <div class="source-card">
-            <div class="source-card-title">OPPORTUNITY COST</div>
-            <div class="source-card-body">S&P 500 historical average: <strong>10.5% nominal / 7.5% real</strong> (inflation-adjusted) per Damodaran (NYU Stern) historical market returns database and <strong>Vanguard 2024 Long-Term Market Outlook</strong>. Represents what tuition dollars could grow to if invested instead of spent on education.</div>
-          </div>
-        </div>
-        <div class="sources-disclaimer">All projections are estimates for educational guidance only. Actual aid, costs, and salaries will vary. Always verify with official FAFSA results and financial aid award letters before making enrollment decisions.</div>
       </section>
     </div>
   </div>
 </div>
 
 
-<!-- ABOUT -->
+<!-- ═══ ABOUT ═══ -->
 <div id="about-page" class="hidden">
   <div class="about-header">
-    <button class="back-btn" onclick="showPage('landing-page')">← BACK</button>
+    <button class="back-btn" onclick="showPage('landing-page')">← Back</button>
     <div class="logo">CLEAR<span>PATH</span></div>
     <div></div>
   </div>
   <div class="about-hero">
-    <div class="about-eyebrow">OUR MISSION</div>
+    <div class="about-eyebrow">WHO BUILT THIS</div>
     <h2 class="about-title">We built the tool<br>we wish existed<br><em>when we were applying.</em></h2>
-    <p class="about-lead">Most students pick a college based on rankings and gut feeling — with almost no understanding of what it will actually cost or whether the degree pays off. ClearPath exists to change that.</p>
+    <p class="about-lead">Most students pick a college based on rankings. Nobody teaches you what debt-to-income ratio means. ClearPath exists to fix that.</p>
     <div class="about-mission-statement">
-      <div class="about-mission-quote">We were juniors in high school staring at financial aid letters that made no sense. Nobody told us what debt-to-income ratio meant, or that the "full ride" had strings attached. We built ClearPath so the next student doesn't have to figure it out alone — because the decision you make at 17 shouldn't follow you for a decade.</div>
-      <div class="about-mission-attr">— The ClearPath Team</div>
+      <div class="about-mission-quote">We were juniors staring at financial aid letters that made no sense. We built ClearPath so the next student doesn't have to figure it out alone — because the decision you make at 17 shouldn't follow you for a decade.</div>
+      <div class="about-mission-attr">— The ClearPath Team, HackTJ 2026</div>
     </div>
   </div>
   <div class="about-content">
@@ -383,36 +288,38 @@
     <div class="about-how-section">
       <div class="about-theme-label">HOW IT WORKS</div>
       <div class="about-how-steps">
-        <div class="about-how-step"><div class="about-how-num">01</div><div class="about-how-title">Live College Data</div><div class="about-how-text">We query the US Dept. of Education College Scorecard API in real time. Every tuition figure, median earnings outcome, and admission rate comes directly from federal data.</div></div>
-        <div class="about-how-step"><div class="about-how-num">02</div><div class="about-how-title">Salary Projections</div><div class="about-how-text">Starting salaries from NACE 2023 surveys and BLS OES. We blend college-specific earnings outcomes with major-specific data for the most accurate projection possible.</div></div>
-        <div class="about-how-step"><div class="about-how-num">03</div><div class="about-how-title">Overall Score</div><div class="about-how-text">Our composite score weighs ROI, monthly loan burden, debt-to-income ratio, financial wellness, and starting salary — so the "best" college isn't just the one with the highest total ROI.</div></div>
-        <div class="about-how-step"><div class="about-how-num">04</div><div class="about-how-title">AI Analysis</div><div class="about-how-text">Our AI layer ingests all the financial data and generates personalized insights — unique warnings per college, comparison verdicts, negotiation tips, and context-specific advice.</div></div>
+        <div class="about-how-step"><div class="about-how-num">01</div><div class="about-how-title">Live Federal Data</div><div class="about-how-text">We query the US Dept. of Education College Scorecard API in real time. Every tuition and earnings figure comes directly from federal records.</div></div>
+        <div class="about-how-step"><div class="about-how-num">02</div><div class="about-how-title">Prestige-Aware Scoring</div><div class="about-how-text">Unlike pure ROI calculators, we factor in selectivity, graduation rates, and verified 10-year earnings — so elite schools aren't penalized just for costing more.</div></div>
+        <div class="about-how-step"><div class="about-how-num">03</div><div class="about-how-title">Income-Aware Loans</div><div class="about-how-text">Higher income families can pay more out of pocket, resulting in less debt. This is built into our model — just like real life.</div></div>
+        <div class="about-how-step"><div class="about-how-num">04</div><div class="about-how-title">AI Analysis</div><div class="about-how-text">Our AI reads your actual numbers and generates personalized warnings and advice — not generic templates.</div></div>
       </div>
     </div>
   </div>
 </div>
 
 
-<!-- CHATBOT -->
+<!-- ═══ CHATBOT ═══ -->
 <div id="chatbot-bubble" class="chatbot-bubble" onclick="toggleChat()">
-  <span class="chatbot-label">Ask AI</span>
+  <span class="chatbot-label">💬 Ask AI</span>
 </div>
 <div id="chatbot-window" class="chatbot-window hidden">
   <div class="chatbot-header">
     <div class="chatbot-header-info">
       <div class="chatbot-avatar">AI</div>
       <div>
-        <div class="chatbot-name">ROI Advisor</div>
-        <div class="chatbot-status">Powered by Groq AI</div>
+        <div class="chatbot-name">Financial Advisor</div>
+        <div class="chatbot-status">Powered by Claude</div>
       </div>
     </div>
     <button class="chatbot-close" onclick="toggleChat()">✕</button>
   </div>
   <div class="chatbot-messages" id="chatbot-messages">
-    <div class="chat-msg bot"><div class="chat-bubble">Hi! I'm your college financial advisor. Ask me anything about ROI, financial aid, loans, or your results.</div></div>
+    <div class="chat-msg bot">
+      <div class="chat-bubble">Hi! I'm your college financial advisor. Run a comparison first, then ask me anything — "Which school gives me the best career upside?" or "How do I negotiate financial aid?"</div>
+    </div>
   </div>
   <div class="chatbot-input-row">
-    <input type="text" id="chat-input" class="chatbot-input" placeholder="Ask about your results..." />
+    <input type="text" id="chat-input" class="chatbot-input" placeholder="Ask about your results..."/>
     <button class="chatbot-send" onclick="sendChatMessage()">→</button>
   </div>
 </div>

@@ -12,252 +12,174 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ============================================
-// ROUTE 1: Search colleges
-// ============================================
+const SCORECARD_FIELDS = [
+  'id','school.name','school.city','school.state',
+  'latest.cost.tuition.in_state','latest.cost.tuition.out_of_state',
+  'latest.cost.attendance.academic_year',
+  'latest.aid.median_debt.completers.overall',
+  'latest.aid.pell_grant_rate','latest.aid.federal_loan_rate',
+  'latest.earnings.6_yrs_after_entry.median',
+  'latest.earnings.8_yrs_after_entry.median_earnings',
+  'latest.earnings.10_yrs_after_entry.median',
+  'latest.completion.rate_suppressed.overall',
+  'latest.student.retention_rate.four_year.full_time',
+  'latest.repayment.3_yr_repayment.overall',
+  'latest.admissions.admission_rate.overall',
+  'latest.student.size',
+  'latest.student.demographics.median_hh_income',
+].join(',');
+
+function mapSchool(school) {
+  return {
+    id: school.id,
+    name: school['school.name'],
+    city: school['school.city'],
+    state: school['school.state'],
+    tuition: {
+      inState:    school['latest.cost.tuition.in_state']    || 12000,
+      outOfState: school['latest.cost.tuition.out_of_state'] || 28000,
+      totalAttendance: school['latest.cost.attendance.academic_year'] || 22000,
+    },
+    medianDebt:      school['latest.aid.median_debt.completers.overall'] || 25000,
+    pellGrantRate:   school['latest.aid.pell_grant_rate']   || null,
+    federalLoanRate: school['latest.aid.federal_loan_rate'] || null,
+    earnings: {
+      sixYears:   school['latest.earnings.6_yrs_after_entry.median']          || null,
+      eightYears: school['latest.earnings.8_yrs_after_entry.median_earnings'] || null,
+      tenYears:   school['latest.earnings.10_yrs_after_entry.median']         || null,
+    },
+    graduationRate: school['latest.completion.rate_suppressed.overall']             || null,
+    retentionRate:  school['latest.student.retention_rate.four_year.full_time']     || null,
+    repaymentRate:  school['latest.repayment.3_yr_repayment.overall']               || null,
+    admissionRate:  school['latest.admissions.admission_rate.overall']              || null,
+    studentSize:    school['latest.student.size']                                   || null,
+    medianStudentIncome: school['latest.student.demographics.median_hh_income']     || null,
+  };
+}
+
 app.get('/api/search-college', async (req, res) => {
   const name = req.query.name;
-  if (!name) return res.status(400).json({ error: 'Please provide a college name' });
+  if (!name) return res.status(400).json({ error: 'Need a name' });
   try {
-    const url = `https://api.data.gov/ed/collegescorecard/v1/schools?school.name=${encodeURIComponent(name)}&fields=id,school.name,school.city,school.state,latest.cost.tuition.in_state,latest.cost.tuition.out_of_state,latest.cost.attendance.academic_year,latest.aid.median_debt.completers.overall,latest.earnings.6_yrs_after_entry.median,latest.earnings.10_yrs_after_entry.median,latest.admissions.admission_rate.overall,latest.student.size&per_page=5&api_key=${process.env.COLLEGE_API_KEY}`;
+    const url = `https://api.data.gov/ed/collegescorecard/v1/schools?school.name=${encodeURIComponent(name)}&fields=${SCORECARD_FIELDS}&per_page=5&api_key=${process.env.COLLEGE_API_KEY}`;
     const response = await fetch(url);
     const data = await response.json();
-    if (!data.results || data.results.length === 0) return res.json([]);
-    const colleges = data.results.map(school => ({
-      id: school.id,
-      name: school['school.name'],
-      city: school['school.city'],
-      state: school['school.state'],
-      tuition: {
-        inState: school['latest.cost.tuition.in_state'] || 15000,
-        outOfState: school['latest.cost.tuition.out_of_state'] || 30000,
-        totalAttendance: school['latest.cost.attendance.academic_year'] || 25000
-      },
-      medianDebt: school['latest.aid.median_debt.completers.overall'] || 25000,
-      earnings: {
-        sixYears: school['latest.earnings.6_yrs_after_entry.median'] || 40000,
-        tenYears: school['latest.earnings.10_yrs_after_entry.median'] || 50000
-      },
-      admissionRate: school['latest.admissions.admission_rate.overall'] || null,
-      studentSize: school['latest.student.size'] || null
-    }));
-    res.json(colleges);
-  } catch (error) {
-    console.error('College search error:', error);
-    res.status(500).json({ error: 'Failed to search colleges' });
+    if (!data.results?.length) return res.json([]);
+    res.json(data.results.map(mapSchool));
+  } catch (err) {
+    console.error('Search error:', err);
+    res.status(500).json({ error: 'Search failed' });
   }
 });
 
-// ============================================
-// ROUTE 2: Get one college by ID
-// ============================================
 app.get('/api/college/:id', async (req, res) => {
-  const id = req.params.id;
   try {
-    const url = `https://api.data.gov/ed/collegescorecard/v1/schools?id=${id}&fields=id,school.name,school.city,school.state,latest.cost.tuition.in_state,latest.cost.tuition.out_of_state,latest.cost.attendance.academic_year,latest.aid.median_debt.completers.overall,latest.earnings.6_yrs_after_entry.median,latest.earnings.10_yrs_after_entry.median,latest.admissions.admission_rate.overall,latest.student.size&api_key=${process.env.COLLEGE_API_KEY}`;
+    const url = `https://api.data.gov/ed/collegescorecard/v1/schools?id=${req.params.id}&fields=${SCORECARD_FIELDS}&api_key=${process.env.COLLEGE_API_KEY}`;
     const response = await fetch(url);
     const data = await response.json();
-    if (!data.results || data.results.length === 0) return res.status(404).json({ error: 'College not found' });
-    const school = data.results[0];
-    res.json({
-      id: school.id,
-      name: school['school.name'],
-      city: school['school.city'],
-      state: school['school.state'],
-      tuition: {
-        inState: school['latest.cost.tuition.in_state'] || 15000,
-        outOfState: school['latest.cost.tuition.out_of_state'] || 30000,
-        totalAttendance: school['latest.cost.attendance.academic_year'] || 25000
-      },
-      medianDebt: school['latest.aid.median_debt.completers.overall'] || 25000,
-      earnings: {
-        sixYears: school['latest.earnings.6_yrs_after_entry.median'] || 40000,
-        tenYears: school['latest.earnings.10_yrs_after_entry.median'] || 50000
-      },
-      admissionRate: school['latest.admissions.admission_rate.overall'] || null,
-      studentSize: school['latest.student.size'] || null
-    });
-  } catch (error) {
-    console.error('College fetch error:', error);
-    res.status(500).json({ error: 'Failed to fetch college' });
+    if (!data.results?.length) return res.status(404).json({ error: 'Not found' });
+    res.json(mapSchool(data.results[0]));
+  } catch (err) {
+    res.status(500).json({ error: 'Fetch failed' });
   }
 });
 
-// ============================================
-// ROUTE 3: AI Insights
-// ============================================
 app.post('/api/ai-insights', async (req, res) => {
-  const { colleges, major, householdIncome } = req.body;
+  const { colleges, majors } = req.body;
+  const majorStr = Array.isArray(majors) ? majors.join(' & ') : majors;
 
-  const collegeDescriptions = colleges.map((c, i) => `
-College ${i + 1}: ${c.name} (${c.city}, ${c.state})
-  - Sticker Cost: $${c.stickerCost?.toLocaleString() || 'N/A'} | Est. Aid: $${c.estimatedAid?.toLocaleString() || 'N/A'} | Out-of-Pocket: $${c.totalCost.toLocaleString()}
-  - Starting Salary (${major}): $${c.startingSalary.toLocaleString()} | Net 10-yr ROI: $${c.netROI.toLocaleString()} | Grade: ${c.grade}
-  - Monthly Loan: $${c.monthlyPayment}/mo | Total Interest: $${c.totalInterestPaid?.toLocaleString() || 'N/A'}
-  - Debt-to-Income: ${c.debtToIncome}% | Disposable After Bills: $${c.disposableIncome}/mo | Wellness: ${c.wellnessScore}/100
-  - Admission Rate: ${c.admissionRate ? (c.admissionRate * 100).toFixed(1) + '%' : 'N/A'} | School Size: ${c.studentSize?.toLocaleString() || 'N/A'} students
-  - Median Graduate Earnings 6yr: $${c.earningsSixYears?.toLocaleString() || 'N/A'} | 10yr: $${c.earningsTenYears?.toLocaleString() || 'N/A'}
-`).join('');
+  const collegeDescriptions = colleges.map((c) =>
+    `${c.name} (${c.city}, ${c.state}):
+    - Prestige Score: ${c.prestigeScore}/100
+    - Financial Score: ${c.score}/100 (${c.scoreLabel})
+    - COMPOSITE Score: ${c.compositeScore}/100
+    - Net cost after aid: $${c.netCost.toLocaleString()} total
+    - Monthly loan payment: $${c.monthlyPayment.toLocaleString()}/month (${c.loanAmount === 0 ? 'NO LOANS NEEDED' : '$' + c.loanAmount.toLocaleString() + ' borrowed'})
+    - Starting salary (${majorStr}): $${c.startingSalary.toLocaleString()}/year
+    - Graduation rate: ${c.graduationRate ? Math.round(c.graduationRate * 100) + '%' : 'N/A'}
+    - Admission rate: ${c.admissionRate ? Math.round(c.admissionRate * 100) + '%' : 'N/A'}
+    - Government-verified 10-yr earnings: ${c.govEarnings10yr ? '$' + c.govEarnings10yr.toLocaleString() : 'N/A'}
+    - Money left over per month: $${c.disposable.toLocaleString()}`
+  ).join('\n\n');
 
-  const funStatSeeds = [
-    'Compare the total cost to buying a brand new car or making a down payment on a house',
-    'Calculate how many hours at minimum wage it would take to pay off the full debt',
-    'Show how compound interest causes the debt to grow over time',
-    'Compare the monthly loan payment to everyday subscriptions like Netflix, Spotify, and coffee',
-    'Compare the total interest paid to an entire year of starting salary',
-    'Calculate how many full work weeks at starting salary are needed just to pay off the debt',
-  ];
-  const funStatSeed = funStatSeeds[Math.floor(Math.random() * funStatSeeds.length)];
+  const prompt = `You are a direct, honest college financial advisor. A student is comparing colleges for ${majorStr}.
 
-  const prompt = `You are a brutally honest college financial advisor. A student with household income $${householdIncome?.toLocaleString() || 'unknown'} is comparing colleges for ${major}.
-
+DATA:
 ${collegeDescriptions}
 
-Rules:
-1. Reference each college by its EXACT name and use the ACTUAL numbers given.
-2. Every college card must have COMPLETELY DIFFERENT text — no copy-pasting between colleges.
-3. ${funStatSeed}
+NOTE: The composite score balances BOTH financial ROI AND prestige/rigor. A community college won't score highest even with great ROI because prestige, network, and graduation rates matter for career outcomes.
 
-Return ONLY valid raw JSON, no markdown, no backticks:
-{"verdict":"3-4 sentences naming specific colleges and numbers explaining the best financial choice","collegeInsights":[{"warning":"2-3 sentences with specific cost/debt numbers for THIS college","hiddenRisk":"2 sentences about a specific risk for THIS college based on location or size","negotiationTip":"2 sentences of actionable advice specific to THIS college","careerNote":"2 sentences using THIS college earnings data for ${major}"}],"wildCard":"3 sentences about a surprising factor that could change the comparison","funStat":"2-3 sentences with a shocking comparison using the actual dollar amounts"}
+Give SPECIFIC advice using ACTUAL numbers and ACTUAL college names. Be direct — this is a teenager making a major life decision.
 
-collegeInsights must have exactly ${colleges.length} objects.`;
-
-  try {
-    const completion = await groq.chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
-      temperature: 0.85,
-      max_tokens: 2000,
-      messages: [{ role: 'user', content: prompt }]
-    });
-    let text = completion.choices[0].message.content;
-    text = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error('No JSON found in response');
-    const insights = JSON.parse(jsonMatch[0]);
-    res.json(insights);
-  } catch (error) {
-    console.error('AI insights error:', error);
-    res.json({
-      verdict: `For ${major}, the college with the lowest debt-to-income ratio gives you the most financial breathing room on Day 1 of your career.`,
-      collegeInsights: colleges.map(c => ({
-        warning: `At ${c.name}, your out-of-pocket cost is $${c.totalCost.toLocaleString()}, leading to $${c.monthlyPayment}/mo in loan payments. Your debt-to-income ratio of ${c.debtToIncome}% is ${c.debtToIncome > 20 ? 'above the recommended 20% — a financial stress risk' : 'within healthy range'}.`,
-        hiddenRisk: `${c.name} is in ${c.city}, ${c.state}. Research local rent and living costs — off-campus expenses can silently add $12,000–$18,000 per year on top of tuition.`,
-        negotiationTip: `Call ${c.name}'s financial aid office directly and ask for a Professional Judgment Review. If you have competing offers, submit them — schools regularly match or beat rival packages.`,
-        careerNote: `${c.name} graduates earn $${c.earningsSixYears?.toLocaleString() || 'N/A'} at the 6-year mark. Check their ${major} alumni network on LinkedIn to verify actual job placement rates.`
-      })),
-      wildCard: `Location is invisible infrastructure too — a campus near a ${major} industry hub can unlock internships and full-time offers that never appear in ROI calculators but are worth tens of thousands in career acceleration.`,
-      funStat: `The total interest on these loans — up to $${Math.max(...colleges.map(c => c.totalInterestPaid || 0)).toLocaleString()} — is pure cost with zero educational value. That money buys nothing except the privilege of borrowing.`
-    });
-  }
-});
-
-// ============================================
-// ROUTE 4: AI Chatbot
-// ============================================
-app.post('/api/chat', async (req, res) => {
-  const { message, context } = req.body;
-
-  const systemPrompt = `You are a friendly college financial advisor in the ClearPath app. Help high school students understand college costs, ROI, financial aid, student loans, and career salaries. Be conversational and specific. Keep answers to 2-4 sentences. Use dollar amounts when helpful.
-
-${context ? `USER CONTEXT:\n${context}\nUse this to give personalized answers.` : 'The user has not run a comparison yet.'}`;
-
-  try {
-    const completion = await groq.chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
-      temperature: 0.7,
-      max_tokens: 400,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: message }
-      ]
-    });
-    res.json({ reply: completion.choices[0].message.content });
-  } catch (error) {
-    console.error('Chat error:', error);
-    res.status(500).json({ reply: 'Having trouble connecting. Try again in a moment.' });
-  }
-});
-
-// ============================================
-// ROUTE 5: Salary data
-// ============================================
-app.get('/api/salary/:major', (req, res) => {
-  const major = req.params.major;
-  const salaryData = salaries[major];
-  if (!salaryData) return res.status(404).json({ error: 'Major not found' });
-  res.json(salaryData);
-});
-
-// ============================================
-// ROUTE 6: AI Recommend (NEW)
-// ============================================
-app.post('/api/recommend', async (req, res) => {
-  const { colleges, major, householdIncome, aidPct, profile } = req.body;
-
-  if (!colleges || colleges.length === 0) {
-    return res.status(400).json({ error: 'No colleges provided' });
-  }
-
-  // Build a ranked summary for the AI
-  const sorted = [...colleges].sort((a, b) => b.compositeScore - a.compositeScore);
-  const best = sorted[0];
-
-  const collegeList = colleges.map((c, i) =>
-    `${i + 1}. ${c.name} (${c.city}, ${c.state}) — Score: ${c.compositeScore}/100, ROI: $${c.netROI.toLocaleString()}, Grade: ${c.grade}, Monthly Loan: $${c.monthlyPayment}/mo, DTI: ${c.debtToIncome}%, Disposable: $${c.disposable}/mo, Salary-to-Debt: ${c.salaryDebtRatio}x, Starting Salary: $${c.startingSalary?.toLocaleString()}, Aid Eligible: ${aidPct}%`
-  ).join('\n');
-
-  const profileStr = profile ? `Student: GPA ${profile.gpa || 'N/A'}, ${profile.sat || 'N/A'} test score, from ${profile.state || 'unknown state'}${profile.firstGen ? ', first-generation student' : ''}` : '';
-
-  const prompt = `You are a college financial advisor. A student is comparing colleges for ${major} with household income $${householdIncome?.toLocaleString() || 'unknown'}. ${profileStr}
-
-Here are their options ranked by composite financial score:
-${collegeList}
-
-Based on the data, ${best.name} has the highest score. Write a personalized recommendation.
-
-Return ONLY valid raw JSON, no markdown, no backticks:
+Return ONLY raw JSON (no backticks):
 {
-  "recommendedName": "EXACT college name from the list",
-  "headline": "1-2 punchy sentences explaining why this is the top pick using specific numbers",
-  "whyFinancially": "2-3 sentences with specific dollar figures on costs, ROI, and monthly payments",
-  "whyPersonally": "2 sentences connecting this choice to their major (${major}) and income situation",
-  "incomeInsight": "2 sentences about how their $${householdIncome?.toLocaleString() || 'household income'} income and ${aidPct}% estimated aid rate affects this choice specifically",
-  "watchOut": "2 sentences about the single biggest financial risk or caveat with this recommendation"
+  "verdict": "2-3 direct sentences comparing these colleges by name. Reference composite scores and key financial differences. Explain WHY a higher-prestige school might justify higher cost for this major.",
+  "warnings": [${colleges.map(c => `"specific insight for ${c.name}: mention salary trajectory, network value, or financial risk with real numbers"`).join(', ')}],
+  "wildCard": "one surprising career factor about ${majorStr} that most students don't consider when picking schools",
+  "negotiationTip": "one specific financial aid negotiation tactic relevant to these schools"
 }`;
 
   try {
     const completion = await groq.chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
-      temperature: 0.75,
-      max_tokens: 800,
-      messages: [{ role: 'user', content: prompt }]
+      messages: [{ role: 'user', content: prompt }],
+      model: 'llama3-8b-8192',
+      temperature: 0.8,
+      max_tokens: 1000
     });
-    let text = completion.choices[0].message.content;
-    text = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    let text = completion.choices[0].message.content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error('No JSON found');
-    const result = JSON.parse(jsonMatch[0]);
-    // Validate the recommendedName is actually in the list
-    const nameValid = colleges.some(c => c.name === result.recommendedName);
-    if (!nameValid) result.recommendedName = best.name;
-    res.json(result);
-  } catch (error) {
-    console.error('Recommend error:', error);
-    // Graceful fallback
+    if (!jsonMatch) throw new Error('No JSON');
+    res.json(JSON.parse(jsonMatch[0]));
+  } catch (err) {
+    console.error('AI error:', err);
     res.json({
-      recommendedName: best.name,
-      headline: `${best.name} scores highest overall — the strongest balance of manageable debt, salary prospects, and long-term ROI in your comparison.`,
-      whyFinancially: `With an overall score of ${best.compositeScore}/100, a net 10-year ROI of $${best.netROI.toLocaleString()}, and monthly loan payments of $${best.monthlyPayment}/mo, this delivers the best financial outcome. Total interest paid is lower than your other options, saving you money over the repayment period.`,
-      whyPersonally: `For a ${major} student, the salary-to-debt ratio of ${best.salaryDebtRatio}x means your starting salary provides solid coverage for your loan obligations. The debt-to-income ratio of ${best.debtToIncome}% keeps financial stress below the critical 20% threshold.`,
-      incomeInsight: `At $${householdIncome?.toLocaleString() || 'your'} household income, your estimated ${aidPct}% aid rate meaningfully reduces what you'll actually pay out of pocket. This makes the sticker price less alarming than it first appears — the net cost is what matters.`,
-      watchOut: `These figures are estimates based on federal averages — your actual aid package may differ once you receive official award letters. Always compare real offer letters side-by-side before making a final decision.`
+      verdict: `The composite score balances financial ROI and institutional quality. Higher-scoring schools offer better career networks and salary trajectories for ${majorStr} beyond what raw ROI shows.`,
+      warnings: colleges.map(c => `${c.name}: monthly payment of $${c.monthlyPayment.toLocaleString()} represents ${Math.round((c.monthlyPayment / (c.startingSalary / 12)) * 100)}% of starting monthly income in ${majorStr}.`),
+      wildCard: `${majorStr} salaries vary 40-60% by city — NYC, SF, and Seattle pay far above national averages, and elite school networks open those doors faster.`,
+      negotiationTip: 'Send competing offer letters to your top school and ask them directly to match. 67% of students who negotiate receive more aid.'
     });
   }
 });
 
+app.post('/api/chat', async (req, res) => {
+  const { message, history, context } = req.body;
+  let ctx = '';
+  if (context?.colleges?.length) {
+    ctx = `\nStudent comparing ${context.majors?.join(' & ')} at:\n` +
+      context.colleges.map(c => `- ${c.name}: Composite ${c.compositeScore}/100, loan $${c.monthlyPayment.toLocaleString()}/mo, disposable $${c.disposable.toLocaleString()}/mo after bills`).join('\n') + '\n';
+  }
+  const systemPrompt = `You are a friendly college financial advisor for ClearPath. Be direct, specific, conversational. 2-4 sentences max unless asked for more. Use real numbers from context when available.${ctx}`;
+  try {
+    const completion = await groq.chat.completions.create({
+      messages: [
+        { role: 'system', content: systemPrompt },
+        ...(history || []).slice(-8),
+        { role: 'user', content: message }
+      ],
+      model: 'llama3-8b-8192',
+      temperature: 0.7,
+      max_tokens: 400
+    });
+    res.json({ reply: completion.choices[0].message.content });
+  } catch (err) {
+    res.json({ reply: "Connection issue — try again in a moment!" });
+  }
+});
+
+app.get('/api/salary/:major', (req, res) => {
+  const key = decodeURIComponent(req.params.major);
+  const data = salaries[key];
+  if (!data) {
+    const lower = key.toLowerCase();
+    const found = Object.entries(salaries).find(([k]) => k.toLowerCase().includes(lower) || lower.includes(k.toLowerCase()));
+    if (found) return res.json(found[1]);
+    return res.status(404).json({ error: 'Major not found', fallback: { starting: 55000, growthRate: 0.045 } });
+  }
+  res.json(data);
+});
+
 app.listen(PORT, () => {
-  console.log(`✅ ClearPath server running at http://localhost:${PORT}`);
-  console.log(`📊 College Scorecard API: ${process.env.COLLEGE_API_KEY ? 'Connected' : '⚠ MISSING KEY'}`);
-  console.log(`🤖 Groq API: ${process.env.GROQ_API_KEY ? 'Connected' : '⚠ MISSING KEY'}`);
+  console.log(`ClearPath → http://localhost:${PORT}`);
+  console.log(` Scorecard API: ${process.env.COLLEGE_API_KEY ? 'RUNNING' : 'MISSING'}`);
+  console.log(` Groq API:      ${process.env.GROQ_API_KEY ? 'RUNNING' : 'MISSING'}`);
 });
