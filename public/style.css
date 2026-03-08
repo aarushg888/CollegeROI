@@ -110,6 +110,43 @@ h1 em { font-style: italic; color: var(--accent); }
 .hero-stat-num { font-family: var(--font-display); font-size: 44px; font-weight: 400; color: var(--accent); line-height: 1; }
 .hero-stat-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.5px; color: var(--text-muted); margin-top: 6px; }
 
+/* ── HERO CAMPUS IMAGE ── */
+.hero-image-wrap {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-top: 36px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  height: 340px;
+}
+
+.hero-campus-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 55%;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.hero-image-wrap:hover .hero-campus-img {
+  transform: scale(1.03);
+}
+
+.hero-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(107, 33, 168, 0.08) 0%,
+    rgba(248, 247, 242, 0.0) 50%,
+    rgba(248, 247, 242, 0.5) 100%
+  );
+  pointer-events: none;
+}
+
 /* ── INPUT PANEL ── */
 .input-panel {
   background: white; border: 1px solid var(--border); border-radius: var(--radius-lg);
@@ -426,7 +463,6 @@ h1 em { font-style: italic; color: var(--accent); }
 .about-lead { font-size: 18px; color: var(--text-dim); line-height: 1.85; max-width: 600px; margin: 0 auto 36px; }
 .about-mission-statement { background: white; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 32px 36px; box-shadow: var(--shadow); text-align: left; border-left: 4px solid var(--accent); max-width: 660px; margin: 0 auto; }
 .about-mission-quote { font-family: var(--font-display); font-size: 19px; color: var(--text); line-height: 1.9; margin-bottom: 14px; font-style: italic; }
-.about-mission-attr { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px; color: var(--text-muted); }
 .about-content { padding: 0 52px 80px; max-width: 1200px; margin: 0 auto; }
 .about-team-section, .about-how-section { margin-bottom: 56px; }
 .about-theme-label { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 2.5px; color: var(--text-muted); margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1.5px solid var(--border); text-align: center; }

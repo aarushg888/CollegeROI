@@ -61,146 +61,155 @@
   </div>
 
   <main class="hero">
-    <div class="hero-text">
-      <div class="hero-eyebrow">COLLEGE FINANCIAL ANALYSIS</div>
-      <h1>Is Your<br><em>Dream School</em><br>Worth It?</h1>
-      <p class="sub">Most students choose a college based on rankings and gut feeling — with no idea what it will actually cost or whether the degree pays off. We run the real numbers.</p>
-      <div class="hero-stats">
-        <div class="hero-stat"><div class="hero-stat-num">$1.7T</div><div class="hero-stat-label">Total US student debt</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">21 yrs</div><div class="hero-stat-label">Average time to repay</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">27%</div><div class="hero-stat-label">Grads work in their field</div></div>
-      </div>
+  <div class="hero-text">
+    <div class="hero-eyebrow">COLLEGE FINANCIAL ANALYSIS</div>
+    <h1>Is Your<br><em>Dream School</em><br>Worth It?</h1>
+    <p class="sub">Most students choose a college based on rankings and gut feeling — with no idea what it will actually cost or whether the degree pays off. We run the real numbers.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">$1.7T</div><div class="hero-stat-label">Total US student debt</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">21 yrs</div><div class="hero-stat-label">Average time to repay</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">27%</div><div class="hero-stat-label">Grads work in their field</div></div>
     </div>
 
-    <div class="input-panel">
-      <div class="section-label">YOUR PROFILE</div>
-      <div class="profile-grid">
-        <div class="profile-field">
-          <label>GPA RANGE</label>
-          <div class="custom-select-wrap">
-            <select id="gpa-select" class="custom-select">
-              <option value="4.0">4.0 — Top of class</option>
-              <option value="3.7">3.7 – 3.9</option>
-              <option value="3.3" selected>3.3 – 3.6</option>
-              <option value="3.0">3.0 – 3.2</option>
-              <option value="2.7">2.7 – 2.9</option>
-              <option value="2.5">Below 2.7</option>
-            </select>
-            <span class="select-arrow">↓</span>
-          </div>
-        </div>
-        <div class="profile-field">
-          <label>STATE OF RESIDENCE</label>
-          <div class="custom-select-wrap">
-            <select id="state-select" class="custom-select">
-              <option value="">Select state...</option>
-              <option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option>
-              <option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option>
-              <option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option>
-              <option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option>
-              <option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option>
-              <option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option>
-              <option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option>
-              <option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option>
-              <option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option>
-              <option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option>
-              <option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option>
-              <option>Vermont</option><option value="Virginia" selected>Virginia</option><option>Washington</option>
-              <option>West Virginia</option><option>Wisconsin</option><option>Wyoming</option>
-            </select>
-            <span class="select-arrow">↓</span>
-          </div>
-        </div>
-        <div class="profile-field" style="grid-column: 1 / -1;">
-          <label>FIRST-GEN COLLEGE STUDENT?</label>
-          <div class="toggle-field">
-            <label class="toggle"><input type="checkbox" id="firstgen-toggle"><span class="slider"></span></label>
-            <span id="firstgen-label" class="toggle-label">No</span>
-          </div>
-          <div id="firstgen-note" class="firstgen-note hidden">You may qualify for additional grants and support programs</div>
-        </div>
-      </div>
+    <!-- CAMPUS IMAGE — sits below stats, full width of left column -->
+    <div class="hero-image-wrap">
+      <img
+        src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=900&q=85&auto=format&fit=crop&crop=center"
+        alt="College campus"
+        class="hero-campus-img"
+      />
+      <div class="hero-img-overlay"></div>
+    </div>
 
-      <div class="section-label" style="margin-top:22px">WHAT YOU WANT TO STUDY</div>
-      <div id="majors-list">
-        <div class="major-row" id="major-row-0">
-          <div class="major-row-inner">
-            <div class="major-input-wrap" style="flex:1">
-              <input type="text" class="profile-input major-search-input" id="major-input-0"
-                placeholder="Type your major (e.g. Computer Science, Finance...)" autocomplete="off" value="Computer Science"/>
-              <div class="major-dropdown hidden" id="major-dropdown-0"></div>
-              <input type="hidden" id="major-hidden-0" value="Computer Science"/>
-            </div>
-            <div class="major-weight-badge">65% weight</div>
-          </div>
-        </div>
-      </div>
-      <button id="add-major-btn" class="add-minor-btn">+ Add a second major or minor</button>
-      <div class="major-note">Adding a minor blends salary data into your projections</div>
+  </div>
 
-      <div class="section-label" style="margin-top:22px">COLLEGES TO COMPARE (2–5)</div>
-      <div id="college-inputs-container"></div>
-      <button id="add-college-btn" class="add-college-btn">+ Add Another College to Compare</button>
-
-      <div class="section-label" style="margin-top:22px">YOUR FINANCIAL SITUATION</div>
-      <div class="financial-grid">
-        <div class="option-group">
-          <label>HOUSEHOLD INCOME (before taxes)</label>
-          <div class="income-input-wrap">
-            <span class="income-dollar">$</span>
-            <input type="text" id="income-input" class="income-input" placeholder="75000" maxlength="9"/>
-          </div>
-          <div class="income-bracket-display" id="income-bracket-display">Enter your household income to see your aid estimate</div>
-        </div>
-        <div class="option-group">
-          <label>SCHOLARSHIPS OR GRANTS (per year)</label>
-          <div class="income-input-wrap">
-            <span class="income-dollar">$</span>
-            <input type="text" id="merit-aid-input" class="income-input" placeholder="0" maxlength="8"/>
-          </div>
-          <div class="income-bracket-display">External scholarships you already have</div>
-        </div>
-        <div class="option-group">
-          <label>YOUR FAFSA EFC / SAI</label>
-          <div class="income-input-wrap">
-            <span class="income-dollar">$</span>
-            <input type="text" id="efc-input" class="income-input" placeholder="Leave blank to estimate" maxlength="8"/>
-          </div>
-          <div class="field-explainer">From your Student Aid Report after FAFSA. Leave blank to auto-estimate.</div>
-        </div>
-        <div class="option-group">
-          <label>PLANNED ANNUAL BORROWING</label>
-          <div class="income-input-wrap">
-            <span class="income-dollar">$</span>
-            <input type="text" id="planned-loan-input" class="income-input" placeholder="Auto-calculate" maxlength="8"/>
-          </div>
-          <div class="field-explainer">Federal limits: Yr 1 $5,500 · Yr 2 $6,500 · Yrs 3–4 $7,500. Blank = we calculate.</div>
-        </div>
-      </div>
-
-      <div class="option-group" style="margin-top:16px">
-        <label>DEGREE YOU ARE PURSUING</label>
+  <div class="input-panel">
+    <div class="section-label">YOUR PROFILE</div>
+    <div class="profile-grid">
+      <div class="profile-field">
+        <label>GPA RANGE</label>
         <div class="custom-select-wrap">
-          <select id="degree-select" class="custom-select">
-            <option value="associates">Associate's Degree (2 years)</option>
-            <option value="bachelors" selected>Bachelor's Degree (4 years)</option>
-            <option value="bachelors5">5-Year Program</option>
-            <option value="masters">Bachelor's + Master's (6 years)</option>
+          <select id="gpa-select" class="custom-select">
+            <option value="4.0">4.0 — Top of class</option>
+            <option value="3.7">3.7 – 3.9</option>
+            <option value="3.3" selected>3.3 – 3.6</option>
+            <option value="3.0">3.0 – 3.2</option>
+            <option value="2.7">2.7 – 2.9</option>
+            <option value="2.5">Below 2.7</option>
           </select>
           <span class="select-arrow">↓</span>
         </div>
       </div>
-
-      <button id="calculate-btn" class="calc-btn">
-        <span class="btn-text">CALCULATE MY ROI</span>
-        <span class="btn-arrow">→</span>
-      </button>
-      <div id="error-msg" class="error-msg hidden">Please select at least 2 colleges to compare.</div>
-      <div class="data-sources">Data: US Dept. of Education College Scorecard · Bureau of Labor Statistics · NACE 2024 · College Board 2024–25</div>
+      <div class="profile-field">
+        <label>STATE OF RESIDENCE</label>
+        <div class="custom-select-wrap">
+          <select id="state-select" class="custom-select">
+            <option value="">Select state...</option>
+            <option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option>
+            <option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option>
+            <option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option>
+            <option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option>
+            <option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option>
+            <option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option>
+            <option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option>
+            <option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option>
+            <option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option>
+            <option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option>
+            <option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option>
+            <option>Vermont</option><option value="Virginia" selected>Virginia</option><option>Washington</option>
+            <option>West Virginia</option><option>Wisconsin</option><option>Wyoming</option>
+          </select>
+          <span class="select-arrow">↓</span>
+        </div>
+      </div>
+      <div class="profile-field" style="grid-column: 1 / -1;">
+        <label>FIRST-GEN COLLEGE STUDENT?</label>
+        <div class="toggle-field">
+          <label class="toggle"><input type="checkbox" id="firstgen-toggle"><span class="slider"></span></label>
+          <span id="firstgen-label" class="toggle-label">No</span>
+        </div>
+        <div id="firstgen-note" class="firstgen-note hidden">You may qualify for additional grants and support programs</div>
+      </div>
     </div>
-  </main>
-</div>
 
+    <div class="section-label" style="margin-top:22px">WHAT YOU WANT TO STUDY</div>
+    <div id="majors-list">
+      <div class="major-row" id="major-row-0">
+        <div class="major-row-inner">
+          <div class="major-input-wrap" style="flex:1">
+            <input type="text" class="profile-input major-search-input" id="major-input-0"
+              placeholder="Type your major (e.g. Computer Science, Finance...)" autocomplete="off" value="Computer Science"/>
+            <div class="major-dropdown hidden" id="major-dropdown-0"></div>
+            <input type="hidden" id="major-hidden-0" value="Computer Science"/>
+          </div>
+          <div class="major-weight-badge">65% weight</div>
+        </div>
+      </div>
+    </div>
+    <button id="add-major-btn" class="add-minor-btn">+ Add a second major or minor</button>
+    <div class="major-note">Adding a minor blends salary data into your projections</div>
+
+    <div class="section-label" style="margin-top:22px">COLLEGES TO COMPARE (2–5)</div>
+    <div id="college-inputs-container"></div>
+    <button id="add-college-btn" class="add-college-btn">+ Add Another College to Compare</button>
+
+    <div class="section-label" style="margin-top:22px">YOUR FINANCIAL SITUATION</div>
+    <div class="financial-grid">
+      <div class="option-group">
+        <label>HOUSEHOLD INCOME (before taxes)</label>
+        <div class="income-input-wrap">
+          <span class="income-dollar">$</span>
+          <input type="text" id="income-input" class="income-input" placeholder="75000" maxlength="9"/>
+        </div>
+        <div class="income-bracket-display" id="income-bracket-display">Enter your household income to see your aid estimate</div>
+      </div>
+      <div class="option-group">
+        <label>SCHOLARSHIPS OR GRANTS (per year)</label>
+        <div class="income-input-wrap">
+          <span class="income-dollar">$</span>
+          <input type="text" id="merit-aid-input" class="income-input" placeholder="0" maxlength="8"/>
+        </div>
+        <div class="income-bracket-display">External scholarships you already have</div>
+      </div>
+      <div class="option-group">
+        <label>YOUR FAFSA EFC / SAI</label>
+        <div class="income-input-wrap">
+          <span class="income-dollar">$</span>
+          <input type="text" id="efc-input" class="income-input" placeholder="Leave blank to estimate" maxlength="8"/>
+        </div>
+        <div class="field-explainer">From your Student Aid Report after FAFSA. Leave blank to auto-estimate.</div>
+      </div>
+      <div class="option-group">
+        <label>PLANNED ANNUAL BORROWING</label>
+        <div class="income-input-wrap">
+          <span class="income-dollar">$</span>
+          <input type="text" id="planned-loan-input" class="income-input" placeholder="Auto-calculate" maxlength="8"/>
+        </div>
+        <div class="field-explainer">Federal limits: Yr 1 $5,500 · Yr 2 $6,500 · Yrs 3–4 $7,500. Blank = we calculate.</div>
+      </div>
+    </div>
+
+    <div class="option-group" style="margin-top:16px">
+      <label>DEGREE YOU ARE PURSUING</label>
+      <div class="custom-select-wrap">
+        <select id="degree-select" class="custom-select">
+          <option value="associates">Associate's Degree (2 years)</option>
+          <option value="bachelors" selected>Bachelor's Degree (4 years)</option>
+          <option value="bachelors5">5-Year Program</option>
+          <option value="masters">Bachelor's + Master's (6 years)</option>
+        </select>
+        <span class="select-arrow">↓</span>
+      </div>
+    </div>
+
+    <button id="calculate-btn" class="calc-btn">
+      <span class="btn-text">CALCULATE MY ROI</span>
+      <span class="btn-arrow">→</span>
+    </button>
+    <div id="error-msg" class="error-msg hidden">Please select at least 2 colleges to compare.</div>
+    <div class="data-sources">Data: US Dept. of Education College Scorecard · Bureau of Labor Statistics · NACE 2024 · College Board 2024–25</div>
+  </div>
+</main>
 
 <!-- ═══ RESULTS ═══ -->
 <div id="results-page" class="hidden">
@@ -273,11 +282,10 @@
   </div>
   <div class="about-hero">
     <div class="about-eyebrow">WHO BUILT THIS</div>
-    <h2 class="about-title">We built the tool<br>we wish existed<br><em>when we were applying.</em></h2>
+    <h2 class="about-title">We built the tool<br><em>that all high school students</em><br>will benefit from</h2>
     <p class="about-lead">Most students pick a college based on rankings. Nobody teaches you what debt-to-income ratio means. ClearPath exists to fix that.</p>
     <div class="about-mission-statement">
-      <div class="about-mission-quote">We were juniors staring at financial aid letters that made no sense. We built ClearPath so the next student doesn't have to figure it out alone — because the decision you make at 17 shouldn't follow you for a decade.</div>
-      <div class="about-mission-attr">— The ClearPath Team, HackTJ 2026</div>
+      <div class="about-mission-quote">We built ClearPath so the every student doesn't have to figure your college financials alone because the decision you make at 17 shouldn't follow you for a decade.</div>
     </div>
   </div>
   <div class="about-content">
@@ -289,7 +297,7 @@
       <div class="about-theme-label">HOW IT WORKS</div>
       <div class="about-how-steps">
         <div class="about-how-step"><div class="about-how-num">01</div><div class="about-how-title">Live Federal Data</div><div class="about-how-text">We query the US Dept. of Education College Scorecard API in real time. Every tuition and earnings figure comes directly from federal records.</div></div>
-        <div class="about-how-step"><div class="about-how-num">02</div><div class="about-how-title">Prestige-Aware Scoring</div><div class="about-how-text">Unlike pure ROI calculators, we factor in selectivity, graduation rates, and verified 10-year earnings — so elite schools aren't penalized just for costing more.</div></div>
+        <div class="about-how-step"><div class="about-how-num">02</div><div class="about-how-title">Prestige-Aware Scoring</div><div class="about-how-text">Unlike pure ROI calculators, we factor in selectivity, graduation rates, and verified 10-year earnings, so elite schools aren't penalized just for costing more.</div></div>
         <div class="about-how-step"><div class="about-how-num">03</div><div class="about-how-title">Income-Aware Loans</div><div class="about-how-text">Higher income families can pay more out of pocket, resulting in less debt. This is built into our model — just like real life.</div></div>
         <div class="about-how-step"><div class="about-how-num">04</div><div class="about-how-title">AI Analysis</div><div class="about-how-text">Our AI reads your actual numbers and generates personalized warnings and advice — not generic templates.</div></div>
       </div>
